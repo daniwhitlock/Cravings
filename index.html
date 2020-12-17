@@ -3,9 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Cravings</title>
 </head>
 <body>
-    
+    <!-- header -->
+    <nav class="nav-extended grey darken-4">
+        <div class="nav-wrapper">
+          <span class="nav-title">Cravings</span>
+          <ul class="right hide-on-med-and-down">
+            <li><a>A link</a></li>
+            <li><a>A second link</a></li>
+            <li><a>A third link</a></li>
+          </ul>
+        </div>
+        <div class="nav-content">
+          <span class="heading h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus venenatis ante ac fermentum. In eu condimentum libero. Phasellus suscipit porta nisl venenatis faucibus. Sed sem enim, interdum at vehicula vitae, convallis non augue. Proin luctus ligula quis consequat blandit. Integer tempus ex ut enim consequat dignissim.</span>
+          </a>
+        </div>
+    </nav>
+    <!-- forms -->
+    <div class="container">
+        <div class="userInputForm card">
+            <h2>Have an idea?</h2>
+            <p>Enter your location and the food type you're craving to generate a list of both recipies and local restaurants.</p>
+            <form>
+                <label for="city">Enter your city name</label>
+                <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
+                <label for="foodtype">Enter your desired food type</label>
+                <input type="text" placeholder="ex. Italian" name="foodtype" id="foodtype" class="form-input" />
+                <a class="waves-effect red darken-4 btn">Submit</a>
+            </form>
+        </div>
+        <div class="random card">
+            <h2>Need help deciding?</h2>
+            <p>Enter your location to generate a list of top rated restaurants in your area as well as popular recipies.</p>
+            <form>
+                <label for="city">Enter your city name</label>
+                <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
+                <a class="waves-effect red darken-4 btn">Submit</a>
+            </form>
+        </div>
+    </div>
+
+    <!-- results -->
+    <div class="container">
+        <div class="results">
+            <h3>Top Recipies</h3>
+
+        </div>
+        <div class="results">
+            <h3>Top Restaurants</h3>
+
+        </div>
+    </div>
+
+    <!-- footer
+    <footer class="page-footer grey darken-4">
+          <div class="container">
+          Cravings 2020
+          </div>
+    </footer>
+    -->
+
+    <!-- materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/js/project.js"></script>
 </body>
 </html>
