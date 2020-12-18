@@ -37,3 +37,4 @@ function getTastyRecipes() {
 }
 
 getZamatoLocation();
+getTastyRecipes();
