@@ -140,3 +140,5 @@ getTastyRecipes();
 
 // event listener for location list buttons
 restaurantBoxEl.addEventListener("click", locationClickHandler);
+
+
