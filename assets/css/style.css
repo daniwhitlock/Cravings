@@ -34,3 +34,10 @@ main {
     margin: 20px;
     flex: 1;
 }
+
+.button-margins {
+    margin: 5px;
+}
+a {
+    color: white;
+}

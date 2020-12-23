@@ -170,7 +170,7 @@ $(document).ready(function(){
 
 function getTastyRecipes(food) {
     fetch(
-        "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=" + food,
+        "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&tags=" + food,
         {
             method: "GET",
             headers: {
@@ -196,33 +196,39 @@ function getTastyRecipes(food) {
                 var card = document.createElement("div");
                 card.setAttribute("class", "card");
                
+                // add title = recipe name
                 var cardContent = document.createElement("div");
                 cardContent.setAttribute("class", "card-content");
                 var spanCardContent = document.createElement("span");
                 spanCardContent.setAttribute("class", "card-title");
                 spanCardContent.textContent = results[i].name;
 
+                // add image of recipe
                 var imageCard = document.createElement("img");
                 imageCard.setAttribute("src", results[i].thumbnail_url);
                 imageCard.setAttribute("width", "150px");
                 
-                
-
+                // append image and recipe name/title to card
                 cardContent.appendChild(spanCardContent);
                 card.appendChild(cardContent);
                 card.appendChild(imageCard);
                 
-
-                var cardAction = document.createElement("div");
-                cardAction.setAttribute("class", "card-title");
+                // make button for go to recipe and add to favorites and append to page
+                var goToDiv= document.createElement("div");
                 var resultBtn = document.createElement("button");
-                resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn");
-                resultBtn.textContent = "Click to go to recipe";
+                resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
+                resultBtn.textContent = "Go to recipe";
                 resultBtn.value = results[i].id;
-                cardAction.appendChild(resultBtn);
-
-                card.appendChild(cardAction);
-
+                goToDiv.appendChild(resultBtn);
+                card.appendChild(goToDiv);
+               
+                var cardBtnDiv2 = document.createElement("div");
+                var addFavoritesBtn = document.createElement("button");
+                addFavoritesBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
+                addFavoritesBtn.textContent = "Add to Favorites";
+                cardBtnDiv2.appendChild(addFavoritesBtn);
+                card.appendChild(cardBtnDiv2);
+                
                 col.appendChild(card);
                 resultsEl.appendChild(col);
             };
@@ -262,9 +268,9 @@ recipeSubmitEl.addEventListener("click", function (e) {
 });
 
 //add event listener for the pick up element by id
-resultBtn.addEventListener("click", function(id){
-    console.log(this);
-})
+// resultBtn.addEventListener("click", function(id){
+//     console.log(this);
+// })
     //console.log of this.value= value of button should be id //#end
     //that id number needs to feed to 
     //fetDetailsRecipe();
