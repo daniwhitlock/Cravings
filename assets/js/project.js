@@ -48,37 +48,33 @@ function getTastyRecipes(food) {
                 var card = document.createElement("div");
                 card.setAttribute("class", "card");
 
-                    var cardContent = document.createElement("div");
-                    cardContent.setAttribute("class", "card-content");
-                        var spanCardContent = document.createElement("span");
-                        spanCardContent.setAttribute("class",  "card-title");
-                        spanCardContent.textContent = results[i].name;
+                var cardContent = document.createElement("div");
+                cardContent.setAttribute("class", "card-content");
+                var spanCardContent = document.createElement("span");
+                spanCardContent.setAttribute("class", "card-title");
+                spanCardContent.textContent = results[i].name;
 
-                        var pCardContent = document.createElement("p");
-                        // pCardContent.setAttribute(""); //need to set a class?
-                        pCardContent.textContent = results[i].description;
-                
-                        cardContent.appendChild(spanCardContent);
-                        cardContent.appendChild(pCardContent);
-                    card.appendChild(cardContent);
-                    
-                    var cardAction = document.createElement("div");
-                    cardAction.setAttribute("class", "card-title");
-                        var resultBtn = document.createElement("button");
-                        resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn");
-                        resultBtn.textContent = "Click to go to recipe";
-                        resultBtn.value = results[i].id;
-                        cardAction.appendChild(resultBtn);
-                    
-                    card.appendChild(cardAction);
+                var pCardContent = document.createElement("p");
+                // pCardContent.setAttribute(""); //need to set a class?
+                pCardContent.textContent = results[i].description;
+
+                cardContent.appendChild(spanCardContent);
+                cardContent.appendChild(pCardContent);
+                card.appendChild(cardContent);
+
+                var cardAction = document.createElement("div");
+                cardAction.setAttribute("class", "card-title");
+                var resultBtn = document.createElement("button");
+                resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn");
+                resultBtn.textContent = "Click to go to recipe";
+                resultBtn.value = results[i].id;
+                cardAction.appendChild(resultBtn);
+
+                card.appendChild(cardAction);
 
                 col.appendChild(card);
-                resultsEl.appendChild(col); 
-                
+                resultsEl.appendChild(col);
             };
-
-           
-            
         })
         .catch(err => {
             console.error(err);
@@ -115,6 +111,9 @@ recipeSubmitEl.addEventListener("click", function (e) {
 });
 
 //add event listener for the pick up element by id
+resultBtn.addEventListener("click", function(id){
+    console.log(this);
+})
     //console.log of this.value= value of button should be id //#end
     //that id number needs to feed to 
     //fetDetailsRecipe();
