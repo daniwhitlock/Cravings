@@ -196,33 +196,45 @@ function getTastyRecipes(food) {
                 var card = document.createElement("div");
                 card.setAttribute("class", "card");
                
+                // add title = recipe name
                 var cardContent = document.createElement("div");
                 cardContent.setAttribute("class", "card-content");
                 var spanCardContent = document.createElement("span");
                 spanCardContent.setAttribute("class", "card-title");
                 spanCardContent.textContent = results[i].name;
 
+                // add image of recipe
                 var imageCard = document.createElement("img");
                 imageCard.setAttribute("src", results[i].thumbnail_url);
                 imageCard.setAttribute("width", "150px");
                 
-                
-
+                // append image and recipe name/title to card
                 cardContent.appendChild(spanCardContent);
                 card.appendChild(cardContent);
                 card.appendChild(imageCard);
                 
-
-                var cardAction = document.createElement("div");
-                cardAction.setAttribute("class", "card-title");
+                // make button for go to recipe and add to favorites
+                var cardBtnDiv1= document.createElement("div");
                 var resultBtn = document.createElement("button");
-                resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn");
-                resultBtn.textContent = "Click to go to recipe";
-                resultBtn.value = results[i].id;
-                cardAction.appendChild(resultBtn);
+                resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
+                resultBtn.textContent = "Go to recipe";
+                // resultBtn.value = results[i].id;
+               
+                
+                cardBtnDiv1.appendChild(resultBtn);
 
-                card.appendChild(cardAction);
+                var cardBtnDiv2 = document.createElement("div");
+                var addFavoritesBtn = document.createElement("button");
+                addFavoritesBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
+                resultBtn.textContent = "Add to Favorites";
 
+                // append buttons to cardAction div
+                
+                cardBtnDiv2.appendChild(addFavoritesBtn);
+                
+                card.appendChild(cardBtnDiv2);
+                card.appendChild(cardBtnDiv1);
+                
                 col.appendChild(card);
                 resultsEl.appendChild(col);
             };
@@ -262,9 +274,9 @@ recipeSubmitEl.addEventListener("click", function (e) {
 });
 
 //add event listener for the pick up element by id
-resultBtn.addEventListener("click", function(id){
-    console.log(this);
-})
+// resultBtn.addEventListener("click", function(id){
+//     console.log(this);
+// })
     //console.log of this.value= value of button should be id //#end
     //that id number needs to feed to 
     //fetDetailsRecipe();
