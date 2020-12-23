@@ -170,7 +170,7 @@ $(document).ready(function(){
 
 function getTastyRecipes(food) {
     fetch(
-        "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=" + food,
+        "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&tags=" + food,
         {
             method: "GET",
             headers: {
@@ -213,27 +213,21 @@ function getTastyRecipes(food) {
                 card.appendChild(cardContent);
                 card.appendChild(imageCard);
                 
-                // make button for go to recipe and add to favorites
-                var cardBtnDiv1= document.createElement("div");
+                // make button for go to recipe and add to favorites and append to page
+                var goToDiv= document.createElement("div");
                 var resultBtn = document.createElement("button");
                 resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
                 resultBtn.textContent = "Go to recipe";
-                // resultBtn.value = results[i].id;
+                resultBtn.value = results[i].id;
+                goToDiv.appendChild(resultBtn);
+                card.appendChild(goToDiv);
                
-                
-                cardBtnDiv1.appendChild(resultBtn);
-
                 var cardBtnDiv2 = document.createElement("div");
                 var addFavoritesBtn = document.createElement("button");
                 addFavoritesBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
-                resultBtn.textContent = "Add to Favorites";
-
-                // append buttons to cardAction div
-                
+                addFavoritesBtn.textContent = "Add to Favorites";
                 cardBtnDiv2.appendChild(addFavoritesBtn);
-                
                 card.appendChild(cardBtnDiv2);
-                card.appendChild(cardBtnDiv1);
                 
                 col.appendChild(card);
                 resultsEl.appendChild(col);
