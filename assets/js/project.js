@@ -188,27 +188,30 @@ function getTastyRecipes(food) {
             console.log(results);
             for (var i = 0; i < results.length; i++) {
                 console.log(results[i].name);
-                console.log(results[i].description);
+                
                 console.log(results[i].id);
                 var col = document.createElement("div");
                 col.setAttribute("class", "col");
 
                 var card = document.createElement("div");
                 card.setAttribute("class", "card");
-
+               
                 var cardContent = document.createElement("div");
                 cardContent.setAttribute("class", "card-content");
                 var spanCardContent = document.createElement("span");
                 spanCardContent.setAttribute("class", "card-title");
                 spanCardContent.textContent = results[i].name;
 
-                var pCardContent = document.createElement("p");
-                // pCardContent.setAttribute(""); //need to set a class?
-                pCardContent.textContent = results[i].description;
+                var imageCard = document.createElement("img");
+                imageCard.setAttribute("src", results[i].thumbnail_url);
+                imageCard.setAttribute("width", "150px");
+                
+                
 
                 cardContent.appendChild(spanCardContent);
-                cardContent.appendChild(pCardContent);
                 card.appendChild(cardContent);
+                card.appendChild(imageCard);
+                
 
                 var cardAction = document.createElement("div");
                 cardAction.setAttribute("class", "card-title");
