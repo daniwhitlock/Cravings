@@ -1,6 +1,11 @@
 var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grabs the first one- getElementById is more specific- don't need hashtag for getElementById- you do for querySelector
 var resultsEl = document.getElementById("recipe-results");
 
+//dropdown menu functionality
+$(document).ready(function(){
+    $('select').formSelect();
+ });
+
 // function getZamatoLocation() {
 //     let apiUrl =
 //         "https://developers.zomato.com/api/v2.1/locations?query=Provo&count=10";
@@ -122,7 +127,3 @@ resultBtn.addEventListener("click", function(id){
 
 // getZamatoLocation();
 
-//dropdown menu functionality
-$(document).ready(function(){
-    $('select').formSelect();
- });
