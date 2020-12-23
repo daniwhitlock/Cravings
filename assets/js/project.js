@@ -116,6 +116,8 @@ function locationClickHandler(event) {
 
 // end zamato API functions
 
+//start tasty API functions
+
 function getTastyRecipes() {
   fetch(
     "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=italian",
@@ -149,24 +151,6 @@ $(document).ready(function(){
     $('select').formSelect();
  });
 
-// function getZamatoLocation() {
-//     let apiUrl =
-//         "https://developers.zomato.com/api/v2.1/locations?query=Provo&count=10";
-
-//     fetch(apiUrl, {
-//         headers: {
-//             "user-key": "d1e1f6cd33def7c3ba28f54a2d380f20",
-//         },
-//     })
-//         .then(function (response) {
-//             if (response.ok) {
-//                 return response.json();
-//             }
-//         })
-//         .then(function (data) {
-//             console.log(data);
-//         });
-// };
 
 function getTastyRecipes(food) {
     fetch(
@@ -275,7 +259,4 @@ recipeSubmitEl.addEventListener("click", function (e) {
     //that id number needs to feed to 
     //fetDetailsRecipe();
 
-
-
-// getZamatoLocation();
 
