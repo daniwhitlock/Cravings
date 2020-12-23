@@ -24,17 +24,27 @@
           </a>
         </div>
     </nav>
+
     <!-- forms -->
     <div class="container">
         <div class="userInputForm card">
-            <h2>Have an idea?</h2>
-            <p>Enter your location and the food type you're craving to generate a list of both recipies and local restaurants.</p>
+            <h2>Want to go out?</h2>
+            <p>Enter your location and the food type you're craving to generate a list of local restaurants.</p>
             <form>
+                <!-- city name textbox -->
                 <label for="city">Enter your city name</label>
                 <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
-                <label for="foodtype">Enter your desired food type</label>
-                <input type="text" placeholder="ex. Italian" name="foodtype" id="foodtype" class="form-input" />
-                <a class="waves-effect red darken-4 btn">Submit</a>
+                <!-- cuisine type dropdown -->
+                <label for="foodtype">Select your desired food type</label>
+                <select name="foodtype" id="foodtype" class="form-input">
+                    <option value="" disabled selected></option>
+                    <option value="american">American</option>
+                    <option value="italian">Italian</option>
+                    <option value="indian">Indian</option>
+                    <option value="mexican">Mexican</option>
+                    <option value="asian">Asian</option>
+                </select>
+                <button class="waves-effect red darken-4 btn">Submit</button>
             </form>
         </div>
         <div class="random card">
@@ -43,14 +53,23 @@
             <form>
                 <label for="city">Enter your city name</label>
                 <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
-                <a class="waves-effect red darken-4 btn">Submit</a>
+                <button class="waves-effect red darken-4 btn">Submit</button>
+            </form>
+        </div>
+        <div class="random card">
+            <h2>LETS SEARCH FOR RECIPES</h2>
+            <p>Enter a food genre/type to pull up recipes.</p>
+            <form>
+                <label for="city">Enter your food type</label>
+                <input type="text" placeholder="ex. Italian" name="food-type" id="food-type" class="form-input" />
+                <button class="waves-effect red darken-4 btn" id="recipe-btn">Submit</button>
             </form>
         </div>
     </div>
 
     <!-- results -->
     <div class="container">
-        <div class="results">
+        <div class="results" id="recipe-results">
             <h3>Top Recipies</h3>
             <div id="recipe-box">
                 
@@ -74,6 +93,8 @@
     </footer>
     -->
 
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/project.js"></script>
