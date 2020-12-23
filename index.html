@@ -24,17 +24,27 @@
           </a>
         </div>
     </nav>
+
     <!-- forms -->
     <div class="container">
         <div class="userInputForm card">
-            <h2>Have an idea?</h2>
-            <p>Enter your location and the food type you're craving to generate a list of both recipies and local restaurants.</p>
+            <h2>Want to go out?</h2>
+            <p>Enter your location and the food type you're craving to generate a list of local restaurants.</p>
             <form>
+                <!-- city name textbox -->
                 <label for="city">Enter your city name</label>
                 <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
-                <label for="foodtype">Enter your desired food type</label>
-                <input type="text" placeholder="ex. Italian" name="foodtype" id="foodtype" class="form-input" />
-                <a class="waves-effect red darken-4 btn">Submit</a>
+                <!-- cuisine type dropdown -->
+                <label for="foodtype">Select your desired food type</label>
+                <select name="foodtype" id="foodtype" class="form-input">
+                    <option value="" disabled selected></option>
+                    <option value="american">American</option>
+                    <option value="italian">Italian</option>
+                    <option value="indian">Indian</option>
+                    <option value="mexican">Mexican</option>
+                    <option value="asian">Asian</option>
+                </select>
+                <button class="waves-effect red darken-4 btn">Submit</button>
             </form>
         </div>
         <div class="random card">
@@ -43,7 +53,7 @@
             <form>
                 <label for="city">Enter your city name</label>
                 <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
-                <a class="waves-effect red darken-4 btn">Submit</a>
+                <button class="waves-effect red darken-4 btn">Submit</button>
             </form>
         </div>
         <div class="random card">
@@ -77,6 +87,8 @@
     </footer>
     -->
 
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/project.js"></script>
