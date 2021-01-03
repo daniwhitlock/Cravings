@@ -1,7 +1,13 @@
 // global variables for important DOM elements, feel free to extend list as needed
 let restaurantBoxEl = document.querySelector("#restaurant-box");
+let restaurantSubmitEl = document.querySelector("#restaurant-form");
+let cityInputEl = document.querySelector("#city");
+let foodTypeEl = document.querySelector("#foodtype");
 
 function getZamatoLocation() {
+  // console.log(e);
+  // e.preventDefault;
+
   let apiUrl =
     "https://developers.zomato.com/api/v2.1/locations?query=Provo&count=10";
 
@@ -79,7 +85,7 @@ function getZamatoRestaurants(restaurantUrl) {
           score: data.restaurants[i].restaurant.user_rating.aggregate_rating,
           rating: data.restaurants[i].restaurant.user_rating.rating_text,
           hours: data.restaurants[i].restaurant.timings,
-          resId: data.restaurants[i].restaurant["R"].res_id, // needed to get menu
+          menu: data.restaurants[i].restaurant.menu_url,
         });
       }
 
@@ -89,17 +95,18 @@ function getZamatoRestaurants(restaurantUrl) {
       // this for loop creates a materialize.css card for each restaurant and appends it to the page
       for (let i = 0; i < resInfo.length; i++) {
         let resCardEl = document.createElement("div");
-        resCardEl.classList =
-          "card blue-grey darken-1 card-content white-text res-card";
-        resCardEl.setAttribute("data-res-id", resInfo[i].resId);
+        resCardEl.classList = "card blue-grey darken-1 white-text res-card";
         console.log(resInfo.redId);
 
         let cardTitleEl = document.createElement("span");
         cardTitleEl.classList = "card-title";
         cardTitleEl.textContent = resInfo[i].resName;
 
-        let cardBodyEl = document.createElement("ul");
-        cardBodyEl.innerHTML =
+        let cardBodyEl = document.createElement("div");
+        cardBodyEl.classList = "card-content";
+
+        let cardListEl = document.createElement("ul");
+        cardListEl.innerHTML =
           "<li>" +
           resInfo[i].address +
           "</li><li>" +
@@ -110,16 +117,39 @@ function getZamatoRestaurants(restaurantUrl) {
           resInfo[i].rating +
           "</li>";
 
+        let cardActionEl = document.createElement("div");
+        cardActionEl.classList = "card-action";
+
+        let menuLinkEl = document.createElement("a");
+        menuLinkEl.classList = "res-link teal lighten-2 btn";
+        menuLinkEl.setAttribute("href", resInfo[i].menu);
+        menuLinkEl.setAttribute("target", "_blank");
+        menuLinkEl.innerHTML =
+          "<i class='material-icons'>restaurant_menu</i>&nbsp;View Menu";
+
+        let directionEl = document.createElement("a");
+        directionEl.classList = "res-link red lighten-2 btn";
+        directionEl.setAttribute(
+          "href",
+          new URL(
+            "https://www.google.com/maps/dir/?api=1&destination=" +
+              resInfo[i].address
+          )
+        );
+        directionEl.setAttribute("target", "_blank");
+        directionEl.innerHTML =
+          "<i class='material-icons'>directions</i>&nbsp;Get Directions";
+
         resCardEl.appendChild(cardTitleEl);
+        cardBodyEl.appendChild(cardListEl);
+        cardActionEl.appendChild(menuLinkEl);
+        cardActionEl.appendChild(directionEl);
         resCardEl.appendChild(cardBodyEl);
+        resCardEl.appendChild(cardActionEl);
         restaurantBoxEl.appendChild(resCardEl);
       }
     });
 }
-
-function getRestaurantDetails() {}
-
-function zamatoToTasty() {}
 
 function locationClickHandler(event) {
   if (
@@ -137,11 +167,6 @@ function locationClickHandler(event) {
       "&count=10&cuisines=55&sort=rating&order=desc";
 
     getZamatoRestaurants(restaurantUrl);
-  } else if (event.target.className === "res-card") {
-    let resId = event.target.getAttribute("data-res-id");
-    let menuUrl = "";
-
-    fetch;
   }
 }
 
@@ -168,7 +193,6 @@ function getTastyRecipes() {
     });
 }
 
-getZamatoLocation();
 getTastyRecipes();
 
 // event listener for location list buttons
@@ -291,6 +315,9 @@ recipeSubmitEl.addEventListener("click", function (e) {
   console.log(recipeType);
   getTastyRecipes(recipeType); //we are giving getTastyRecipe the recipe Type, getTastyRecipes reads it as food.
 });
+
+restaurantSubmitEl.addEventListener("submit", getZamatoLocation);
+getZamatoLocation();
 
 //add event listener for the pick up element by id
 // resultBtn.addEventListener("click", function(id){

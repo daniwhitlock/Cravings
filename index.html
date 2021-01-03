@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Cravings</title>
 </head>
@@ -27,7 +28,7 @@
         <div class="userInputForm card">
             <h2>Want To Go Out?</h2>
             <p>Enter your location and the food type you're craving to generate a list of local restaurants.</p>
-            <form>
+            <form id="restaurant-form">
                 <!-- city name textbox -->
                 <label for="city">Enter your city name</label>
                 <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
@@ -36,7 +37,7 @@
                 <select name="foodtype" id="foodtype" class="form-input">
                     <option value="" disabled selected></option>
                     <option value="american">American</option>
-                    <option value="italian">Italian</option>
+                    <option value="55">Italian</option>
                     <option value="indian">Indian</option>
                     <option value="mexican">Mexican</option>
                     <option value="asian">Asian</option>

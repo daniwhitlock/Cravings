@@ -38,6 +38,23 @@ main {
 .button-margins {
     margin: 5px;
 }
+
 a {
     color: white;
+}
+
+.btn i {
+    font-size: 14px;
+}
+
+.res-link {
+    margin-right: 6px;
+}
+
+.card .card-content {
+    padding: 0;
+}
+
+.card .card-action {
+    padding: 16px 24px 0 0;
 }
