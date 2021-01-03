@@ -3,13 +3,13 @@ let restaurantBoxEl = document.querySelector("#restaurant-box");
 let restaurantSubmitEl = document.querySelector("#restaurant-form");
 let cityInputEl = document.querySelector("#city");
 let foodTypeEl = document.querySelector("#foodtype");
+let resFoodType;
 
 function getZamatoLocation() {
-  // console.log(e);
-  // e.preventDefault;
-
   let apiUrl =
-    "https://developers.zomato.com/api/v2.1/locations?query=Provo&count=10";
+    "https://developers.zomato.com/api/v2.1/locations?query=" +
+    cityInputEl.value +
+    "&count=10";
 
   fetch(apiUrl, {
     headers: {
@@ -164,7 +164,9 @@ function locationClickHandler(event) {
       entityId +
       "&entity_type=" +
       entityType +
-      "&count=10&cuisines=55&sort=rating&order=desc";
+      "&count=10&cuisines=" +
+      resFoodType +
+      "&sort=rating&order=desc";
 
     getZamatoRestaurants(restaurantUrl);
   }
@@ -316,8 +318,12 @@ recipeSubmitEl.addEventListener("click", function (e) {
   getTastyRecipes(recipeType); //we are giving getTastyRecipe the recipe Type, getTastyRecipes reads it as food.
 });
 
-restaurantSubmitEl.addEventListener("submit", getZamatoLocation);
-getZamatoLocation();
+restaurantSubmitEl.addEventListener("submit", function (e) {
+  e.preventDefault();
+  resFoodType = foodTypeEl.value;
+  getZamatoLocation();
+});
+// getZamatoLocation();
 
 //add event listener for the pick up element by id
 // resultBtn.addEventListener("click", function(id){
