@@ -29,8 +29,10 @@ function getZamatoLocation() {
         locButton.textContent = locSearchResults[i].title;
         locButton.classList = "btn";
         locButton.setAttribute("data-entity-id", locSearchResults[i].entity_id);
-
+        
         locationButtonsEl.appendChild(locButton);
+
+        restaurantBoxEl.appendChild(locButton);
       }
     });
 }
@@ -72,7 +74,8 @@ function getZamatoRestaurants(restaurantUrl) {
       // this for loop creates a materialize.css card for each restaurant and appends it to the page
       for (let i = 0; i < resInfo.length; i++) {
         let resCardEl = document.createElement("div");
-        resCardEl.classList = "card card-content";
+
+        resCardEl.classList = "card blue-grey darken-1 card-content white-text";
 
         let cardTitleEl = document.createElement("span");
         cardTitleEl.classList = "card-title";
@@ -152,7 +155,7 @@ $(document).ready(function(){
     $('select').formSelect();
  });
 
-//modal functionality
+
 $(document).ready(function(){
   $('.modal').modal();
 });
@@ -206,7 +209,8 @@ function getTastyRecipes(food) {
                 // make button for go to recipe and add to favorites and append to page
                 var goToDiv= document.createElement("div");
                 var resultBtn = document.createElement("button");
-                resultBtn.classList.add("recipe-id", "waves-effect", "waves-lighten", "btn", "button-margins");
+
+                resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
                 resultBtn.textContent = "Go to recipe";
                 resultBtn.value = results[i].id;
                 goToDiv.appendChild(resultBtn);
@@ -214,7 +218,8 @@ function getTastyRecipes(food) {
                
                 var cardBtnDiv2 = document.createElement("div");
                 var addFavoritesBtn = document.createElement("button");
-                addFavoritesBtn.classList.add("recipe-id", "waves-effect", "waves-lighten", "btn", "button-margins");
+                addFavoritesBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
+
                 addFavoritesBtn.textContent = "Add to Favorites";
                 cardBtnDiv2.appendChild(addFavoritesBtn);
                 card.appendChild(cardBtnDiv2);
@@ -263,4 +268,5 @@ recipeSubmitEl.addEventListener("click", function (e) {
 // })
     //console.log of this.value= value of button should be id //#end
     //that id number needs to feed to 
+
     //fetDetailsRecipe();
