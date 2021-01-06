@@ -147,133 +147,150 @@ var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grab
 var resultsEl = document.getElementById("recipe-results");
 
 //dropdown menu functionality
-$(document).ready(function(){
-    $('select').formSelect();
- });
+$(document).ready(function () {
+  $('select').formSelect();
+});
 
 
 function getTastyRecipes(food) {
-    fetch(
-        "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&tags=" + food,
-        {
-            method: "GET",
-            headers: {
-                "x-rapidapi-key": "09af83b4a4mshb4829f998e9809fp13521fjsn62893ece2ab2",
-                "x-rapidapi-host": "tasty.p.rapidapi.com",
-            },
-        }
-    )
-        .then((response) => {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            var results = data.results;
-            console.log(results);
-            for (var i = 0; i < results.length; i++) {
-                console.log(results[i].name);
-                
-                var recipeId = results[i].id;
-                console.log(recipeId);
-                var videoUrl = results[i].original_video_url;
-                console.log(recipeId + " video url = " + videoUrl);
-                var col = document.createElement("div");
-                col.setAttribute("class", "col");
+  fetch(
+    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&tags=" + food,
+    {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "09af83b4a4mshb4829f998e9809fp13521fjsn62893ece2ab2",
+        "x-rapidapi-host": "tasty.p.rapidapi.com",
+      },
+    }
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      var results = data.results;
+      console.log(results);
+      resultsEl.innerHTML = ""; //remove search on page 
+      for (var i = 0; i < results.length; i++) {
+        console.log(results[i].name);
 
-                var card = document.createElement("div");
-                card.setAttribute("class", "card");
-                
-               
-                // add title = recipe name
-                var cardContent = document.createElement("div");
-                cardContent.setAttribute("class", "card-content");
-                var spanCardContent = document.createElement("span");
-                spanCardContent.setAttribute("class", "card-title");
-                spanCardContent.textContent = results[i].name;
+        var recipeId = results[i].id;
+        console.log(recipeId);
 
-                // add image of recipe
-                var imageCard = document.createElement("img");
-                imageCard.setAttribute("src", results[i].thumbnail_url);
-                imageCard.setAttribute("width", "150px");
-                
-                // append image and recipe name/title to card
-                cardContent.appendChild(spanCardContent);
-                card.appendChild(cardContent);
-                card.appendChild(imageCard);
-                
-                // make button for go to recipe and add to favorites and append to page
-                var goToDiv= document.createElement("div");
-                var resultBtn = document.createElement("button");
-                resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
-                resultBtn.textContent = "Go to recipe";
-                resultBtn.value = results[i].id;
-                goToDiv.appendChild(resultBtn);
-                card.appendChild(goToDiv);
-               
-                var cardBtnDiv2 = document.createElement("div");
-                var addFavoritesBtn = document.createElement("button");
-                addFavoritesBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
-                addFavoritesBtn.textContent = "Add to Favorites";
-                cardBtnDiv2.appendChild(addFavoritesBtn);
-                card.appendChild(cardBtnDiv2);
-                
-                col.appendChild(card);
-                resultsEl.appendChild(col);
-                resultBtn.addEventListener("click", function(recipeId, videoUrl){
-                  // console.log(this.value);
-                  console.log(this.value);
-                  // getRecipeUrl(recipeId);
-                  // console.log() //error- you have exceeded the rate per limit -- with my api key
-                 });
-                
-            };
-        })
-        .catch(err => {
-            console.error(err);
+        var videoUrl = results[i].original_video_url;
+        console.log(recipeId + " video url = " + videoUrl);
+        var col = document.createElement("div");
+        col.setAttribute("class", "col");
+
+        var card = document.createElement("div");
+        card.setAttribute("class", "card");
+
+
+        // add title = recipe name
+        var cardContent = document.createElement("div");
+        cardContent.setAttribute("class", "card-content");
+        var spanCardContent = document.createElement("span");
+        spanCardContent.setAttribute("class", "card-title");
+        spanCardContent.textContent = results[i].name;
+
+        // add image of recipe
+        var imageCard = document.createElement("img");
+        imageCard.setAttribute("src", results[i].thumbnail_url);
+        imageCard.setAttribute("width", "150px");
+
+        // append image and recipe name/title to card
+        cardContent.appendChild(spanCardContent);
+        card.appendChild(cardContent);
+        card.appendChild(imageCard);
+
+        // make button for go to recipe and add to favorites and append to page
+        var goToDiv = document.createElement("div");
+        var resultBtn = document.createElement("button");
+        resultBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
+        resultBtn.textContent = "Go to recipe video";
+        resultBtn.value = recipeId;
+        resultBtn.setAttribute("data-url", videoUrl); //assigning videoUrl to button
+        goToDiv.appendChild(resultBtn);
+        card.appendChild(goToDiv);
+
+        var cardBtnDiv2 = document.createElement("div");
+        var addFavoritesBtn = document.createElement("button");
+        addFavoritesBtn.classList.add("recipe-id", "waves-effect", "red", "darken-4", "btn", "button-margins");
+        addFavoritesBtn.textContent = "Add to Favorites";
+        cardBtnDiv2.appendChild(addFavoritesBtn);
+        card.appendChild(cardBtnDiv2);
+
+        col.appendChild(card);
+        resultsEl.appendChild(col);
+
+
+
+        resultBtn.addEventListener("click", (e) => {
+          // console.log(e.target.value);
+          // console.log(e);
+          // console.log(e.target.getAttribute("data-url")); //need getAttribute with data-url 
+          window.open(e.target.getAttribute("data-url"), "_blank");
+
+          // Code to use if I figure out await and async
+                // var id = e.target.value;
+                // var goToRecipeUrl = getRecipeUrl(id);
+                // console.log(goToRecipeUrl);
+                // if (goToRecipeUrl === null || goToRecipeUrl === undefined) {
+                //   window.open(e.target.getAttribute("data-url"), "_blank");
+                // }
+                // else {
+                //   window.open(goToRecipeUrl, "_blank");
+                // }
+
         });
+
+        //add to favorites event listener for button 
+        //what you store is an object underneath new key
+        //name, image source, and id, video-url- store each on as an object
+        //key is SavedRecipe = {}
+
+      };
+    })
+    .catch(err => {
+      console.error(err);
+    });
 };
 
-function getRecipeUrl(id) {
-    fetch("https://tasty.p.rapidapi.com/recipes/detail?id=" + id,
-        {
-            method: "GET",
-            headers: {
-                "x-rapidapi-key": "09af83b4a4mshb4829f998e9809fp13521fjsn62893ece2ab2",
-                "x-rapidapi-host": "tasty.p.rapidapi.com"
-            },
-        })
-        .then((response) => {
-            return response.json();
-        })
-        .then(function (data) {
-            console.log(data);
-            
-            var goToRecipeUrl = data.inspired_by_url;
-            console.log("id: " + id + "  url: " + goToRecipeUrl);
-            return {goToRecipeUrl}; //not sure if that is how I push that value back to the event listener
+// Need to figure out async and await 
+    // async function getRecipeUrl(id) {
+    //   await fetch("https://tasty.p.rapidapi.com/recipes/detail?id=" + id,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         "x-rapidapi-key": "09af83b4a4mshb4829f998e9809fp13521fjsn62893ece2ab2",
+    //         "x-rapidapi-host": "tasty.p.rapidapi.com"
+    //       },
+    //     })
+    //     .then((response) => {
+    //       return response.json();
+    //     })
+    //     .then(function (data) {
+    //       console.log(data);
 
-        })
-        .catch(err => {
-            console.error(err);
-        });
-}
+    //       var goToRecipeUrl = data.inspired_by_url;
+    //       console.log("id: " + id + "  url: " + goToRecipeUrl);
+
+    //       return goToRecipeUrl; //not sure if that is how I push that value back to the event listener
+
+    //     })
+    //     .catch(err => {
+    //       console.error(err);
+    //     });
+    // }
 
 recipeSubmitEl.addEventListener("click", function (e) {
-    e.preventDefault(); //prevent the default
-    var recipeType = document.getElementById("food-type").value;
-    console.log(recipeType);
-    getTastyRecipes(recipeType); // we are giving getTastyRecipe the recipeType, getTastyRecipes reads it as food. 
+  e.preventDefault(); //prevent the default
+  var recipeType = document.getElementById("food-type").value;
+  console.log(recipeType);
+  getTastyRecipes(recipeType); // we are giving getTastyRecipe the recipeType, getTastyRecipes reads it as food. 
 
 });
 
-//add event listener for the pick up element by id
-// resultBtn.addEventListener("click", function(recipeId, videoUrl){
-//   console.log(this.value);
-//   getRecipeUrl(recipeId);
-//   console.log() //error- you have exceeded the rate per limit -- with my api key
-//  });
-    //console.log of this.value= value of button should be id //#end
-    //that id number needs to feed to 
-    //fetDetailsRecipe();
+// add to Favorites
 
 
