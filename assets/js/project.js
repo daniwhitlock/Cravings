@@ -173,8 +173,7 @@ function locationClickHandler(event) {
   }
 }
 
-// end zamato API functions
-
+// end zamato API function
 
 //start tasty API functions
 
@@ -360,3 +359,4 @@ function getTastyRecipes() {
   
   
       //fetDetailsRecipe();
+
