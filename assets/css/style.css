@@ -5,6 +5,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 main {
@@ -17,12 +18,14 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    
 }
 
 .card {
     margin: 20px;
     padding: 20px;
     flex: 1;
+    flex-wrap: wrap;
 }
 
 .card h2 {
@@ -32,4 +35,16 @@ main {
 .results {
     margin: 20px;
     flex: 1;
+}
+
+.button-margins {
+    margin: 5px;
+}
+a {
+    color: white;
+}
+
+nav {
+    padding: 30px;
+    background-color: #000C3F;
 }
