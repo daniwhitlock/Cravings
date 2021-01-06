@@ -5,6 +5,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 main {
@@ -24,6 +25,7 @@ main {
     margin: 20px;
     padding: 20px;
     flex: 1;
+    flex-wrap: wrap;
 }
 
 .card h2 {
@@ -40,4 +42,7 @@ main {
 }
 a {
     color: white;
-}
+
+nav {
+    padding: 30px;
+    background-color: #000C3F;

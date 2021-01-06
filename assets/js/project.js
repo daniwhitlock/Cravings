@@ -1,5 +1,6 @@
 // global variables for important DOM elements, feel free to extend list as needed
 let restaurantBoxEl = document.querySelector("#restaurant-box");
+let locationButtonsEl = document.querySelector("#locationButtons");
 
 function getZamatoLocation() {
   let apiUrl =
@@ -28,6 +29,8 @@ function getZamatoLocation() {
         locButton.textContent = locSearchResults[i].title;
         locButton.classList = "btn";
         locButton.setAttribute("data-entity-id", locSearchResults[i].entity_id);
+        
+        locationButtonsEl.appendChild(locButton);
 
         restaurantBoxEl.appendChild(locButton);
       }
@@ -71,6 +74,7 @@ function getZamatoRestaurants(restaurantUrl) {
       // this for loop creates a materialize.css card for each restaurant and appends it to the page
       for (let i = 0; i < resInfo.length; i++) {
         let resCardEl = document.createElement("div");
+
         resCardEl.classList = "card blue-grey darken-1 card-content white-text";
 
         let cardTitleEl = document.createElement("span");
@@ -149,6 +153,11 @@ var resultsEl = document.getElementById("recipe-results");
 //dropdown menu functionality
 $(document).ready(function () {
   $('select').formSelect();
+});
+
+
+$(document).ready(function(){
+  $('.modal').modal();
 });
 
 
@@ -294,3 +303,4 @@ recipeSubmitEl.addEventListener("click", function (e) {
 // add to Favorites
 
 
+    //fetDetailsRecipe();
