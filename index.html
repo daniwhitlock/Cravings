@@ -6,44 +6,72 @@
     <!-- materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Cravings</title>
+    <title>CRAVINGS</title>
 </head>
 <body>
     <!-- header -->
-    <nav class="nav-extended grey darken-4">
+    <nav class="nav-extended">
         <div class="nav-wrapper">
-          <span class="nav-title">Cravings</span>
-          <ul class="right hide-on-med-and-down">
-            <li><a>A link</a></li>
-            <li><a>A second link</a></li>
-            <li><a>A third link</a></li>
+          <span class="nav-title">CRAVINGS</span>
+          <ul class="right">
+            <li><a href="./favorites.html" class="waves-effect waves-light btn">My Favorites</a></li> 
           </ul>
         </div>
         <div class="nav-content">
-          <span class="heading h5">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis cursus venenatis ante ac fermentum. In eu condimentum libero. Phasellus suscipit porta nisl venenatis faucibus. Sed sem enim, interdum at vehicula vitae, convallis non augue. Proin luctus ligula quis consequat blandit. Integer tempus ex ut enim consequat dignissim.</span>
-          </a>
+          <span class="heading h5">Sometimes you just don't know what you want to eat. Many a fight has begun when couples or groups can't decide what to eat or where to eat.  Here at CRAVINGS, we've made it easy for you! With a click of a few buttons, you can easily view the top restaurants in your area or find top recipes for a specific food genre.  </span>
         </div>
     </nav>
+
     <!-- forms -->
     <div class="container">
         <div class="userInputForm card">
-            <h2>Have an idea?</h2>
-            <p>Enter your location and the food type you're craving to generate a list of both recipies and local restaurants.</p>
+            <h2>Want To Go Out?</h2>
+            <p>Enter your location and the food type you're craving to generate a list of local restaurants.</p>
             <form>
+                <!-- city name textbox -->
                 <label for="city">Enter your city name</label>
                 <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
-                <label for="foodtype">Enter your desired food type</label>
-                <input type="text" placeholder="ex. Italian" name="foodtype" id="foodtype" class="form-input" />
-                <a class="waves-effect red darken-4 btn">Submit</a>
+                <!-- cuisine type dropdown -->
+                <label for="foodtype">Select your desired food type</label>
+                <select name="foodtype" id="foodtype" class="form-input">
+                    <option value="" disabled selected></option>
+                    <option value="1">American</option>
+                    <option value="3">Asian</option>
+                    <option value="55">Italian</option>
+                    <option value="148">Indian</option>
+                    <option value="134">German</option>
+                    <option value="156">Greek</option>
+                    <option value="73">Mexican</option>
+                    <option value="83">Seafood</option>
+                    <option value="461">Soul Food</option>
+                    <option value="177">Sushi</option>
+                    <option value="93">Thai</option>
+                    <option value="308">Vegetarian</option>
+                </select>
+                <button data-target="modal1" class="waves-effect waves-light btn modal-trigger">Submit</button>
             </form>
         </div>
+
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+            <h4>Select your location</h4>
+            <div id="locationButtons">
+                
+            </div>
+            </div>
+            <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn">OK</a>
+            </div>
+        </div>
+        
         <div class="random card">
-            <h2>Need help deciding?</h2>
-            <p>Enter your location to generate a list of top rated restaurants in your area as well as popular recipies.</p>
+            <h2>Want To Stay In?</h2>
+            <p>Enter the food type you're craving to pull up recipes.</p>
             <form>
-                <label for="city">Enter your city name</label>
-                <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
-                <a class="waves-effect red darken-4 btn">Submit</a>
+                <label for="food-type">Enter your desired food type</label>
+                <input type="text" placeholder="ex. Italian" name="food-type" id="food-type" class="form-input" />
+                <button class="waves-effect waves-light btn" id="recipe-btn">Submit</button>
             </form>
         </div>
     </div>
@@ -51,29 +79,23 @@
     <!-- results -->
     <div class="container">
         <div class="results">
-            <h3>Top Recipies</h3>
-            <div id="recipe-box">
-                
-            </div>
-
-        </div>
-        <div class="results">
-            <h3>Top Restaurants</h3>
+            <h3>Restaurants</h3>
             <div id="restaurant-box">
 
             </div>
 
         </div>
+        <div class="results" id="recipe-results">
+            <h3>Recipes</h3>
+            <div id="recipe-box">
+            </div>
+
+        </div>
+        
     </div>
 
-    <!-- footer
-    <footer class="page-footer grey darken-4">
-          <div class="container">
-          Cravings 2020
-          </div>
-    </footer>
-    -->
-
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- materialize -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/project.js"></script>
