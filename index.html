@@ -6,15 +6,16 @@
     <!-- materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Cravings</title>
+    <title>CRAVINGS</title>
 </head>
 <body>
     <!-- header -->
-    <nav class="nav-extended grey darken-4">
+    <nav class="nav-extended">
         <div class="nav-wrapper">
-          <span class="nav-title">Cravings</span>
-          <ul class="right hide-on-med-and-down">
-            <li><a>My Favorites</a></li> 
+          <span class="nav-title">CRAVINGS</span>
+          <ul class="right">
+            <li><a class="waves-effect waves-light btn">My Favorites</a></li> 
+
           </ul>
         </div>
         <div class="nav-content">
@@ -36,21 +37,36 @@
                 <select name="foodtype" id="foodtype" class="form-input">
                     <option value="" disabled selected></option>
                     <option value="american">American</option>
-                    <option value="italian">Italian</option>
+                    <option value="55">Italian</option>
                     <option value="indian">Indian</option>
                     <option value="mexican">Mexican</option>
                     <option value="asian">Asian</option>
                 </select>
-                <button class="waves-effect red darken-4 btn">Submit</button>
+                <button data-target="modal1" class="waves-effect waves-light btn modal-trigger">Submit</button>
             </form>
         </div>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Select your location</h4>
+       <div id="locationButtons">
+           
+       </div>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">OK</a>
+    </div>
+  </div>
         
         <div class="random card">
             <h2>Want To Stay In?</h2>
             <p>Enter a food genre/type to pull up recipes.</p>
             <form>
+
+                <label for="food-type">Enter your desired food type</label>
                 <input type="text" placeholder="ex. Italian" name="food-type" id="food-type" class="form-input" />
-                <button class="waves-effect red darken-4 btn" id="recipe-btn">Submit</button>
+                <button class="waves-effect waves-light btn" id="recipe-btn">Submit</button>
             </form>
         </div>
     </div>
@@ -74,13 +90,12 @@
         
     </div>
 
-    <!-- footer
+    <!-- footer -->
     <footer class="page-footer grey darken-4">
           <div class="container">
           Cravings 2020
           </div>
     </footer>
-    -->
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
