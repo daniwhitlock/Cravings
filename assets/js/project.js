@@ -173,12 +173,16 @@ function getTastyRecipes(food) {
             for (var i = 0; i < results.length; i++) {
                 console.log(results[i].name);
                 
-                console.log(results[i].id);
+                var recipeId = results[i].id;
+                console.log(recipeId);
+                var videoUrl = results[i].original_video_url;
+                console.log(recipeId + " video url = " + videoUrl);
                 var col = document.createElement("div");
                 col.setAttribute("class", "col");
 
                 var card = document.createElement("div");
                 card.setAttribute("class", "card");
+                
                
                 // add title = recipe name
                 var cardContent = document.createElement("div");
@@ -215,6 +219,13 @@ function getTastyRecipes(food) {
                 
                 col.appendChild(card);
                 resultsEl.appendChild(col);
+                resultBtn.addEventListener("click", function(recipeId, videoUrl){
+                  // console.log(this.value);
+                  console.log(this.value);
+                  // getRecipeUrl(recipeId);
+                  // console.log() //error- you have exceeded the rate per limit -- with my api key
+                 });
+                
             };
         })
         .catch(err => {
@@ -222,7 +233,7 @@ function getTastyRecipes(food) {
         });
 };
 
-function getDetailsRecipe(id) {
+function getRecipeUrl(id) {
     fetch("https://tasty.p.rapidapi.com/recipes/detail?id=" + id,
         {
             method: "GET",
@@ -236,6 +247,10 @@ function getDetailsRecipe(id) {
         })
         .then(function (data) {
             console.log(data);
+            
+            var goToRecipeUrl = data.inspired_by_url;
+            console.log("id: " + id + "  url: " + goToRecipeUrl);
+            return {goToRecipeUrl}; //not sure if that is how I push that value back to the event listener
 
         })
         .catch(err => {
@@ -247,14 +262,16 @@ recipeSubmitEl.addEventListener("click", function (e) {
     e.preventDefault(); //prevent the default
     var recipeType = document.getElementById("food-type").value;
     console.log(recipeType);
-    getTastyRecipes(recipeType); //we are giving getTastyRecipe the recipe Type, getTastyRecipes reads it as food. 
+    getTastyRecipes(recipeType); // we are giving getTastyRecipe the recipeType, getTastyRecipes reads it as food. 
 
 });
 
 //add event listener for the pick up element by id
-// resultBtn.addEventListener("click", function(id){
-//     console.log(this);
-// })
+// resultBtn.addEventListener("click", function(recipeId, videoUrl){
+//   console.log(this.value);
+//   getRecipeUrl(recipeId);
+//   console.log() //error- you have exceeded the rate per limit -- with my api key
+//  });
     //console.log of this.value= value of button should be id //#end
     //that id number needs to feed to 
     //fetDetailsRecipe();
