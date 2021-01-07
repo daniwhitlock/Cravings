@@ -220,6 +220,7 @@ function locationClickHandler(event) {
 
     instance.close();
     getZamatoRestaurants(restaurantUrl);
+    getTastyRecipes(resFoodType);
   }
 }
 
