@@ -5,6 +5,7 @@ let foodTypeEl = document.querySelector("#foodtype");
 let resFoodType;
 let modalEl = document.querySelector("#modal1");
 let modalBodyEl = document.querySelector("#modal-body");
+let instance = M.Modal.init(modalEl);
 
 function getZamatoLocation() {
   let apiUrl =
@@ -31,10 +32,14 @@ function getZamatoLocation() {
       // this endpoint responds with 10 matches for the location search; this for-loop creates a button for all 10 so users can select a specific one; the entity_id for each location is stored in the HTML data-entity-id attribute for later use (needed for other endpoints)
 
       if (locSearchResults.length > 1) {
+        if (restaurantSubmitEl.children[5]) {
+          restaurantSubmitEl.children[5].remove();
+        }
+        modalBodyEl.innerHTML = "";
         for (let i = 0; i < locSearchResults.length; i++) {
           let locButton = document.createElement("button");
           locButton.textContent = locSearchResults[i].title;
-          locButton.classList = "btn loc-button";
+          locButton.classList = "btn-flat loc-button";
           locButton.setAttribute(
             "data-entity-type",
             locSearchResults[i].entity_type
@@ -60,8 +65,38 @@ function getZamatoLocation() {
 
           modalBodyEl.appendChild(locButton);
         }
-        let instance = M.Modal.init(modalEl);
         instance.open();
+      } else if (locSearchResults.length === 1) {
+        if (restaurantSubmitEl.children[5]) {
+          restaurantSubmitEl.children[5].remove();
+        }
+        if (
+          locSearchResults[0].entity_type === "subzone" ||
+          locSearchResults[0].entity_type === "group" ||
+          locSearchResults[0].entity_type === "zone"
+        ) {
+          var entityId = locSearchResults[0].entity_id;
+          var entityType = locSearchResults[0].entity_type;
+        } else {
+          var entityId = locSearchResults[i].city_id;
+          var entityType = locSearchResults[i].entity_type;
+        }
+
+        let restaurantUrl =
+          "https://developers.zomato.com/api/v2.1/search?entity_id=" +
+          entityId +
+          "&entity_type=" +
+          entityType +
+          "&count=10&cuisines=" +
+          resFoodType +
+          "&sort=rating&order=desc";
+
+        getZamatoRestaurants(restaurantUrl);
+      } else {
+        let searchError = document.createElement("p");
+        searchError.textContent =
+          "No locations found. Please try another search.";
+        restaurantSubmitEl.appendChild(searchError);
       }
     });
 }
@@ -101,67 +136,74 @@ function getZamatoRestaurants(restaurantUrl) {
 
       restaurantBoxEl.innerHTML = "";
       // this for loop creates a materialize.css card for each restaurant and appends it to the page
-      for (let i = 0; i < resInfo.length; i++) {
-        let resCardEl = document.createElement("div");
-        resCardEl.classList = "card blue-grey darken-1 white-text res-card";
-        console.log(resInfo.redId);
+      if (resInfo.length === 0) {
+        let resSearchError = document.createElement("p");
+        resSearchError.textContent = "No restaurants found in this area.";
+        restaurantBoxEl.appendChild(resSearchError);
+      } else {
+        for (let i = 0; i < resInfo.length; i++) {
+          let resCardEl = document.createElement("div");
+          resCardEl.classList = "card blue-grey darken-1 white-text res-card";
+          console.log(resInfo.redId);
 
-        let cardTitleEl = document.createElement("span");
-        cardTitleEl.classList = "card-title";
-        cardTitleEl.textContent = resInfo[i].resName;
+          let cardTitleEl = document.createElement("span");
+          cardTitleEl.classList = "card-title";
+          cardTitleEl.textContent = resInfo[i].resName;
 
-        let cardBodyEl = document.createElement("div");
-        cardBodyEl.classList = "card-content";
+          let cardBodyEl = document.createElement("div");
+          cardBodyEl.classList = "card-content";
 
-        let cardListEl = document.createElement("ul");
-        cardListEl.innerHTML =
-          "<li>" +
-          resInfo[i].address +
-          "</li><li>" +
-          resInfo[i].phone +
-          "</li><li>Rating: " +
-          resInfo[i].score +
-          ", " +
-          resInfo[i].rating +
-          "</li>";
+          let cardListEl = document.createElement("ul");
+          cardListEl.innerHTML =
+            "<li>" +
+            resInfo[i].address +
+            "</li><li>" +
+            resInfo[i].phone +
+            "</li><li>Rating: " +
+            resInfo[i].score +
+            ", " +
+            resInfo[i].rating +
+            "</li>";
 
-        let cardActionEl = document.createElement("div");
-        cardActionEl.classList = "card-action";
+          let cardActionEl = document.createElement("div");
+          cardActionEl.classList = "card-action";
 
-        let menuLinkEl = document.createElement("a");
-        menuLinkEl.classList = "res-link teal lighten-2 btn";
-        menuLinkEl.setAttribute("href", resInfo[i].menu);
-        menuLinkEl.setAttribute("target", "_blank");
-        menuLinkEl.innerHTML =
-          "<i class='material-icons'>restaurant_menu</i>&nbsp;View Menu";
+          let menuLinkEl = document.createElement("a");
+          menuLinkEl.classList = "res-link teal lighten-2 btn";
+          menuLinkEl.setAttribute("href", resInfo[i].menu);
+          menuLinkEl.setAttribute("target", "_blank");
+          menuLinkEl.innerHTML =
+            "<i class='material-icons'>restaurant_menu</i>&nbsp;View Menu";
 
-        let directionEl = document.createElement("a");
-        directionEl.classList = "res-link red lighten-2 btn";
-        directionEl.setAttribute(
-          "href",
-          new URL(
-            "https://www.google.com/maps/dir/?api=1&destination=" +
-              resInfo[i].address
-          )
-        );
-        directionEl.setAttribute("target", "_blank");
-        directionEl.innerHTML =
-          "<i class='material-icons'>directions</i>&nbsp;Get Directions";
+          let directionEl = document.createElement("a");
+          directionEl.classList = "res-link red lighten-2 btn";
+          directionEl.setAttribute(
+            "href",
+            new URL(
+              "https://www.google.com/maps/dir/?api=1&destination=" +
+                resInfo[i].address
+            )
+          );
+          directionEl.setAttribute("target", "_blank");
+          directionEl.innerHTML =
+            "<i class='material-icons'>directions</i>&nbsp;Get Directions";
 
-        resCardEl.appendChild(cardTitleEl);
-        cardBodyEl.appendChild(cardListEl);
-        cardActionEl.appendChild(menuLinkEl);
-        cardActionEl.appendChild(directionEl);
-        resCardEl.appendChild(cardBodyEl);
-        resCardEl.appendChild(cardActionEl);
-        restaurantBoxEl.appendChild(resCardEl);
+          resCardEl.appendChild(cardTitleEl);
+          cardBodyEl.appendChild(cardListEl);
+          cardActionEl.appendChild(menuLinkEl);
+          cardActionEl.appendChild(directionEl);
+          resCardEl.appendChild(cardBodyEl);
+          resCardEl.appendChild(cardActionEl);
+          restaurantBoxEl.appendChild(resCardEl);
+        }
+        restaurantBoxEl.scrollIntoView();
       }
     });
 }
 
 function locationClickHandler(event) {
   if (
-    event.target.className === "btn" &&
+    event.target.className === "btn-flat loc-button" &&
     event.target.getAttribute("data-entity-id")
   ) {
     let entityId = event.target.getAttribute("data-entity-id");
@@ -176,6 +218,7 @@ function locationClickHandler(event) {
       resFoodType +
       "&sort=rating&order=desc";
 
+    instance.close();
     getZamatoRestaurants(restaurantUrl);
   }
 }
@@ -203,7 +246,7 @@ function getTastyRecipes() {
     });
 }
 
-getTastyRecipes();
+// getTastyRecipes();
 
 var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grabs the first one- getElementById is more specific- don't need hashtag for getElementById- you do for querySelector
 var resultsEl = document.getElementById("recipe-results");
