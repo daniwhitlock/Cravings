@@ -5,6 +5,8 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #00082B
 }
 
 main {
@@ -24,6 +26,8 @@ main {
     margin: 20px;
     padding: 20px;
     flex: 1;
+    flex-wrap: wrap;
+    background-color: #E4FCCD;
 }
 
 .card h2 {
@@ -31,6 +35,11 @@ main {
 }
 
 .results {
+    margin: 20px;
+    flex: 1;
+}
+
+.favs {
     margin: 20px;
     flex: 1;
 }
@@ -65,4 +74,20 @@ a {
 
 #modal-body {
     z-index: 99;
+}
+
+nav {
+    padding: 30px;
+    background-color: #00082B;
+}
+
+.nav-header {
+    color: #E4FCCD;
+    font-size: 130px;
+}
+
+.fav-section {
+    padding: 10px 10px 10px 30px;
+    background-color: #00082B;
+    color: #E4FCCD;
 }
