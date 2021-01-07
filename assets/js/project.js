@@ -222,7 +222,7 @@ function getTastyRecipes() {
       {
         method: "GET",
         headers: {
-          "x-rapidapi-key": "09af83b4a4mshb4829f998e9809fp13521fjsn62893ece2ab2",
+          "x-rapidapi-key": "15288d506amsh05d34758954291dp12fcfdjsna01465ebb20e",
           "x-rapidapi-host": "tasty.p.rapidapi.com",
         },
       }
@@ -326,7 +326,7 @@ function getTastyRecipes() {
       //     {
       //       method: "GET",
       //       headers: {
-      //         "x-rapidapi-key": "09af83b4a4mshb4829f998e9809fp13521fjsn62893ece2ab2",
+      //         "x-rapidapi-key": "15288d506amsh05d34758954291dp12fcfdjsna01465ebb20e",
       //         "x-rapidapi-host": "tasty.p.rapidapi.com"
       //       },
       //     })
