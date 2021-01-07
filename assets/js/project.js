@@ -11,8 +11,7 @@ var resultsEl = document.getElementById("recipe-box");
 function getZamatoLocation() {
   let apiUrl =
     "https://developers.zomato.com/api/v2.1/locations?query=" +
-    cityInputEl.value +
-    "&count=10";
+    cityInputEl.value + "&count=10";
 
   fetch(apiUrl, {
     headers: {
@@ -215,7 +214,8 @@ function getTastyRecipes() {
     $('.modal').modal();
   });
   
-  
+  //start Tasty API
+
   function getTastyRecipes(food) {
     fetch(
       "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&tags=" + food,
@@ -349,8 +349,9 @@ function getTastyRecipes() {
   
   recipeSubmitEl.addEventListener("click", function (e) {
     e.preventDefault(); //prevent the default
-    var recipeType = document.getElementById("food-type").value;
-    console.log(recipeType);
+    var recipeTypeInput = document.getElementById("food-type").value;
+    console.log(recipeTypeInput);
+    var recipeType = recipeTypeInput.toLowerCase();
     getTastyRecipes(recipeType); // we are giving getTastyRecipe the recipeType, getTastyRecipes reads it as food. 
   
   });
