@@ -231,111 +231,119 @@ function getTastyRecipes(food) {
       },
     }
   )
-    .then((response) => {
-      return response.json();
-    })
-    .then(function (data) {
-      // console.log(data);
-      var results = data.results;
+  .then((response) => {
+    return response.json();
+  })
+  .then(function (data) {
+    // console.log(data);
+    var results = data.results;
+    // console.log(results);
+    resultsEl.innerHTML = ""; //remove search on page 
+    for (var i = 0; i < results.length; i++) {
       // console.log(results);
-      resultsEl.innerHTML = ""; //remove search on page 
-      for (var i = 0; i < results.length; i++) {
-        // console.log(results);
-        var recipeId = results[i].id;
-        // console.log(recipeId);
+      var recipeId = results[i].id;
+      // console.log(recipeId);
 
-        var videoUrl = results[i].original_video_url;
-        var col = document.createElement("div");
-        col.setAttribute("class", "col");
+      var videoUrl = results[i].original_video_url;
+      var col = document.createElement("div");
+      col.setAttribute("class", "col");
 
-        var card = document.createElement("div");
-        card.setAttribute("class", "card");
+      var card = document.createElement("div");
+      card.setAttribute("class", "card");
 
 
-        // add title = recipe name
-        var cardContent = document.createElement("div");
-        cardContent.setAttribute("class", "card-content");
-        var spanCardContent = document.createElement("span");
-        spanCardContent.setAttribute("class", "card-title");
-        var recipeName = results[i].name;
-        spanCardContent.textContent = recipeName;
+      // add title = recipe name
+      var cardContent = document.createElement("div");
+      cardContent.setAttribute("class", "card-content");
+      var spanCardContent = document.createElement("span");
+      spanCardContent.setAttribute("class", "card-title");
+      var recipeName = results[i].name;
+      spanCardContent.textContent = recipeName;
 
-        // add image of recipe
-        var imageCard = document.createElement("img");
-        imageCard.setAttribute("src", results[i].thumbnail_url);
-        imageCard.setAttribute("width", "150px");
+      // add image of recipe
+      var imageCard = document.createElement("img");
+      imageCard.setAttribute("src", results[i].thumbnail_url);
+      imageCard.setAttribute("width", "150px");
 
-        // append image and recipe name/title to card
-        cardContent.appendChild(spanCardContent);
-        card.appendChild(cardContent);
-        card.appendChild(imageCard);
+      // append image and recipe name/title to card
+      cardContent.appendChild(spanCardContent);
+      card.appendChild(cardContent);
+      card.appendChild(imageCard);
 
-        // make button for go to recipe and add to favorites and append to page
-        var goToDiv = document.createElement("div");
-        var resultBtn = document.createElement("button");
-        resultBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
-        resultBtn.textContent = "Go to recipe video";
-        resultBtn.value = recipeId;
-        resultBtn.setAttribute("data-url", videoUrl); //assigning videoUrl to button
-        goToDiv.appendChild(resultBtn);
-        card.appendChild(goToDiv);
+      // make button for go to recipe and add to favorites and append to page
+      var goToDiv = document.createElement("div");
+      var resultBtn = document.createElement("button");
+      resultBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
+      resultBtn.textContent = "Go to recipe video";
+      resultBtn.value = recipeId;
+      resultBtn.setAttribute("data-url", videoUrl); //assigning videoUrl to button
+      goToDiv.appendChild(resultBtn);
+      card.appendChild(goToDiv);
 
-        var cardBtnDiv2 = document.createElement("div");
-        var addFavoritesBtn = document.createElement("button");
-        addFavoritesBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
-        addFavoritesBtn.setAttribute("data-name", results[i].name);
-        addFavoritesBtn.setAttribute("data-img", results[i].thumbnail_url);
-        addFavoritesBtn.setAttribute("data-video", videoUrl);
-        addFavoritesBtn.textContent = "Add to Favorites";
-        cardBtnDiv2.appendChild(addFavoritesBtn);
-        card.appendChild(cardBtnDiv2);
+      var cardBtnDiv2 = document.createElement("div");
+      var addFavoritesBtn = document.createElement("button");
+      addFavoritesBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
+      addFavoritesBtn.setAttribute("data-name", results[i].name);
+      addFavoritesBtn.setAttribute("data-img", results[i].thumbnail_url);
+      addFavoritesBtn.setAttribute("data-video", videoUrl);
+      addFavoritesBtn.setAttribute("data-id", results[i].id);
+      addFavoritesBtn.textContent = "Add to Favorites";
+      cardBtnDiv2.appendChild(addFavoritesBtn);
+      card.appendChild(cardBtnDiv2);
 
-        col.appendChild(card);
-        resultsEl.appendChild(col);
+      col.appendChild(card);
+      resultsEl.appendChild(col);
 
-        resultBtn.addEventListener("click", (e) => {
-          // console.log(e.target.value);
-          // console.log(e);
-          // console.log(e.target.getAttribute("data-url")); //need getAttribute with data-url 
-          window.open(e.target.getAttribute("data-url"), "_blank");
+      resultBtn.addEventListener("click", (e) => {
+        // console.log(e.target.value);
+        // console.log(e);
+        // console.log(e.target.getAttribute("data-url")); //need getAttribute with data-url 
+        window.open(e.target.getAttribute("data-url"), "_blank");
 
-          // Code to use if I figure out await and async and if api gets updates
-          // var id = e.target.value;
-          // var goToRecipeUrl = getRecipeUrl(id);
-          // console.log(goToRecipeUrl);
-          // if (goToRecipeUrl === null || goToRecipeUrl === undefined) {
-          //   window.open(e.target.getAttribute("data-url"), "_blank");
-          // }
-          // else {
-          //   window.open(goToRecipeUrl, "_blank");
-          // }
-        });
-
-        // add to favorites event listener 
-        addFavoritesBtn.addEventListener("click", function (e) {
-          var object = {
-            recipeName: e.target.dataset.name,
-            recipeImage: e.target.dataset.img,
-            recipeVideo: e.target.dataset.video
-          };
-          favoriteRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
-          console.log(favoriteRecipes);
-          console.log(object);
-          if (!favoriteRecipes.includes(object)){
-            console.log("It wasn't in there");
-            favoriteRecipes.push(object);
-            console.log(favoriteRecipes);
-            var recipeString = JSON.stringify(favoriteRecipes);
-            localStorage.setItem("savedRecipes", recipeString);
-          };
-          
-
+        // Code to use if I figure out await and async and if api gets updates
+        // var id = e.target.value;
+        // var goToRecipeUrl = getRecipeUrl(id);
+        // console.log(goToRecipeUrl);
+        // if (goToRecipeUrl === null || goToRecipeUrl === undefined) {
+        //   window.open(e.target.getAttribute("data-url"), "_blank");
+        // }
+        // else {
+        //   window.open(goToRecipeUrl, "_blank");
+        // }
       });
-};
-    })
-    .catch (err => {
-  console.error(err);
-});
+
+      // add to favorites event listener 
+      addFavoritesBtn.addEventListener("click", function (e) {
+        var object = {
+          recipeName: e.target.dataset.name,
+          recipeImage: e.target.dataset.img,
+          recipeVideo: e.target.dataset.video,
+          recipeId: e.target.dataset.id
+        };
+        favoriteRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+        console.log(favoriteRecipes);
+        console.log(object);
+        console.log(favoriteRecipes.indexOf(object));
+        if (object === favoriteRecipes[0]){
+          console.log("YES")
+          }
+          else{
+          console.log("NO")
+          }
+        if (favoriteRecipes.indexOf(object) === -1) {
+          console.log("It wasn't in there");
+          favoriteRecipes.push(object);
+          console.log(favoriteRecipes);
+          var recipeString = JSON.stringify(favoriteRecipes);
+          localStorage.setItem("savedRecipes", recipeString);
+        };
+      });
+      
+    };
+  })
+  .catch (err => {
+    console.error(err);
+  });
 };
 
 // Need to figure out async and await 
