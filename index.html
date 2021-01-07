@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- materialize -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>CRAVINGS</title>
+</head>
+<body>
+    <!-- header -->
+    <nav class="nav-extended">
+        <div class="nav-wrapper">
+          <span class="nav-header">CRAVINGS</span>
+        </div>
+        <div class="nav-content">
+          <span class="heading h5">Sometimes you just don't know what you want to eat. Many a fight has begun when couples or groups can't decide what to eat or where to eat.  Here at CRAVINGS, we've made it easy for you! With the click of a few buttons, you can easily view the top restaurants in your area or find top recipes for a specific food type.  </span>
+          
+        </div>
+    </nav>
+
+    <!-- forms -->
+    <div class="container">
+        <div class="userInputForm card">
+            <h2>Want To Go Out?</h2>
+            <p>Enter your location and the food type you're craving to generate a list of local restaurants.</p>
+            <form id="restaurant-form">
+                <!-- city name textbox -->
+                <label for="city">Enter your city name</label>
+                <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
+                <!-- cuisine type dropdown -->
+                <label for="foodtype">Select your desired food type</label>
+                <select name="foodtype" id="foodtype" class="form-input">
+                    <option value="" disabled selected></option>
+                    <option value="1">American</option>
+                    <option value="3">Asian</option>
+                    <option value="55">Italian</option>
+                    <option value="148">Indian</option>
+                    <option value="134">German</option>
+                    <option value="156">Greek</option>
+                    <option value="73">Mexican</option>
+                    <option value="83">Seafood</option>
+                    <option value="461">Soul Food</option>
+                    <option value="177">Sushi</option>
+                    <option value="93">Thai</option>
+                    <option value="308">Vegetarian</option>
+                </select>
+                <button class="waves-effect waves-light btn">Submit</button>
+            </form>
+        </div>
+
+        <div class="random card">
+            <h2>Want To Stay In?</h2>
+            <p>Enter the food type you're craving to pull up recipes.</p>
+            <form>
+                <label for="food-type">Enter your desired food type</label>
+                <input type="text" placeholder="ex. Italian" name="food-type" id="food-type" class="form-input" />
+                <button class="waves-effect waves-light btn" id="recipe-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- results -->
+    <div class="container">
+        <div class="results">
+            <h3>Restaurants</h3>
+            <div id="restaurant-box">
+
+            </div>
+        </div>
+      
+      
+        <div class="results" id="recipe-results">
+            <h3>Recipes</h3>
+            <div id="recipe-box">
+
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div class="fav-section" id ="fav-section">
+        <div>
+            <h2>
+                MY FAVORITES
+            </h2>
+
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="favs">
+            <h3>Favorite Restaurants</h3>
+            <div id="fav-restuarants"></div>
+
+        </div>
+
+        <div class="favs" >
+            <h3>Favorite Recipes</h3>
+            <div id="fav-recipes">
+            </div>
+
+        </div>
+        
+    </div>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Select Location</h4>
+          <div id="modal-body"></div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
+        </div>
+      </div>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- materialize -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/js/project.js"></script>
+</body>
+</html>
