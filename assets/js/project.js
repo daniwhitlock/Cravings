@@ -1,11 +1,14 @@
-// global variables for important DOM elements, feel free to extend list as needed
 let restaurantBoxEl = document.querySelector("#restaurant-box");
-let elems = document.querySelectorAll(".modal");
-let instances = M.Modal.init(elems, options);
+let restaurantSubmitEl = document.querySelector("#restaurant-form");
+let cityInputEl = document.querySelector("#city");
+let foodTypeEl = document.querySelector("#foodtype");
+let resFoodType;
 
 function getZamatoLocation() {
   let apiUrl =
-    "https://developers.zomato.com/api/v2.1/locations?query=Provo&count=10";
+    "https://developers.zomato.com/api/v2.1/locations?query=" +
+    cityInputEl.value +
+    "&count=10";
 
   fetch(apiUrl, {
     headers: {
@@ -29,7 +32,25 @@ function getZamatoLocation() {
         let locButton = document.createElement("button");
         locButton.textContent = locSearchResults[i].title;
         locButton.classList = "btn";
-        locButton.setAttribute("data-entity-id", locSearchResults[i].entity_id);
+        locButton.setAttribute(
+          "data-entity-type",
+          locSearchResults[i].entity_type
+        );
+
+        if (
+          locSearchResults[i].entity_type === "subzone" ||
+          locSearchResults[i].entity_type === "group" ||
+          locSearchResults[i].entity_type === "zone"
+        ) {
+          locButton.setAttribute(
+            "data-entity-id",
+            locSearchResults[i].entity_id
+          );
+        } else if (locSearchResults[i].entity_type === "city") {
+          locButton.setAttribute("data-entity-id", locSearchResults[i].city_id);
+        } else {
+          console.log("entity_type unaccounted for (Option " + i + ")");
+        }
 
         restaurantBoxEl.appendChild(locButton);
       }
@@ -63,7 +84,7 @@ function getZamatoRestaurants(restaurantUrl) {
           score: data.restaurants[i].restaurant.user_rating.aggregate_rating,
           rating: data.restaurants[i].restaurant.user_rating.rating_text,
           hours: data.restaurants[i].restaurant.timings,
-          resId: data.restaurants[i].restaurant.R.res_id, // needed to get menu
+          menu: data.restaurants[i].restaurant.menu_url,
         });
       }
 
@@ -73,14 +94,18 @@ function getZamatoRestaurants(restaurantUrl) {
       // this for loop creates a materialize.css card for each restaurant and appends it to the page
       for (let i = 0; i < resInfo.length; i++) {
         let resCardEl = document.createElement("div");
-        resCardEl.classList = "card blue-grey darken-1 card-content white-text";
+        resCardEl.classList = "card blue-grey darken-1 white-text res-card";
+        console.log(resInfo.redId);
 
         let cardTitleEl = document.createElement("span");
         cardTitleEl.classList = "card-title";
         cardTitleEl.textContent = resInfo[i].resName;
 
-        let cardBodyEl = document.createElement("ul");
-        cardBodyEl.innerHTML =
+        let cardBodyEl = document.createElement("div");
+        cardBodyEl.classList = "card-content";
+
+        let cardListEl = document.createElement("ul");
+        cardListEl.innerHTML =
           "<li>" +
           resInfo[i].address +
           "</li><li>" +
@@ -91,8 +116,35 @@ function getZamatoRestaurants(restaurantUrl) {
           resInfo[i].rating +
           "</li>";
 
+        let cardActionEl = document.createElement("div");
+        cardActionEl.classList = "card-action";
+
+        let menuLinkEl = document.createElement("a");
+        menuLinkEl.classList = "res-link teal lighten-2 btn";
+        menuLinkEl.setAttribute("href", resInfo[i].menu);
+        menuLinkEl.setAttribute("target", "_blank");
+        menuLinkEl.innerHTML =
+          "<i class='material-icons'>restaurant_menu</i>&nbsp;View Menu";
+
+        let directionEl = document.createElement("a");
+        directionEl.classList = "res-link red lighten-2 btn";
+        directionEl.setAttribute(
+          "href",
+          new URL(
+            "https://www.google.com/maps/dir/?api=1&destination=" +
+              resInfo[i].address
+          )
+        );
+        directionEl.setAttribute("target", "_blank");
+        directionEl.innerHTML =
+          "<i class='material-icons'>directions</i>&nbsp;Get Directions";
+
         resCardEl.appendChild(cardTitleEl);
+        cardBodyEl.appendChild(cardListEl);
+        cardActionEl.appendChild(menuLinkEl);
+        cardActionEl.appendChild(directionEl);
         resCardEl.appendChild(cardBodyEl);
+        resCardEl.appendChild(cardActionEl);
         restaurantBoxEl.appendChild(resCardEl);
       }
     });
@@ -100,20 +152,23 @@ function getZamatoRestaurants(restaurantUrl) {
 
 function locationClickHandler(event) {
   if (
-    event.target.className !== "btn" ||
-    !event.target.getAttribute("data-entity-id")
+    event.target.className === "btn" &&
+    event.target.getAttribute("data-entity-id")
   ) {
-    return;
+    let entityId = event.target.getAttribute("data-entity-id");
+    let entityType = event.target.getAttribute("data-entity-type");
+
+    let restaurantUrl =
+      "https://developers.zomato.com/api/v2.1/search?entity_id=" +
+      entityId +
+      "&entity_type=" +
+      entityType +
+      "&count=10&cuisines=" +
+      resFoodType +
+      "&sort=rating&order=desc";
+
+    getZamatoRestaurants(restaurantUrl);
   }
-
-  let entityId = event.target.getAttribute("data-entity-id");
-
-  let restaurantUrl =
-    "https://developers.zomato.com/api/v2.1/search?entity_id=" +
-    entityId +
-    "&entity_type=subzone&count=10&cuisines=55&sort=rating&order=desc";
-
-  getZamatoRestaurants(restaurantUrl);
 }
 
 // end zamato API functions
@@ -139,7 +194,6 @@ function getTastyRecipes() {
     });
 }
 
-getZamatoLocation();
 getTastyRecipes();
 
 // event listener for location list buttons
