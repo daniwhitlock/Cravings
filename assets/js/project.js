@@ -319,7 +319,7 @@ function getTastyRecipes() {
             favoriteRecipes.push(object);
             console.log(favoriteRecipes);
             var recipeNameString = JSON.stringify(favoriteRecipes);
-            localStorage.setItem(recipeNameString);
+            localStorage.setItem("savedRecipes", recipeNameString);
           });
           //what you store is an object underneath new key
           //name, image source, and id, video-url- store each on as an object
@@ -369,7 +369,9 @@ function getTastyRecipes() {
   });
   
   // add to My Favorites Page
+  function displayRecipeLocalStorage () {
+
+  }
   
   
-      //fetDetailsRecipe();
 
