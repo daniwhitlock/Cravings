@@ -5,6 +5,8 @@ let restaurantSubmitEl = document.querySelector("#restaurant-form");
 let cityInputEl = document.querySelector("#city");
 let foodTypeEl = document.querySelector("#foodtype");
 let resFoodType;
+var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grabs the first one- getElementById is more specific- don't need hashtag for getElementById- you do for querySelector
+var resultsEl = document.getElementById("recipe-box");
 
 function getZamatoLocation() {
   let apiUrl =
@@ -202,8 +204,6 @@ function getTastyRecipes() {
   // event listener for location list buttons
   restaurantBoxEl.addEventListener("click", locationClickHandler);
   
-  var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grabs the first one- getElementById is more specific- don't need hashtag for getElementById- you do for querySelector
-  var resultsEl = document.getElementById("recipe-results");
   
   //dropdown menu functionality
   $(document).ready(function () {
@@ -231,9 +231,9 @@ function getTastyRecipes() {
         return response.json();
       })
       .then(function (data) {
-        console.log(data);
+        // console.log(data);
         var results = data.results;
-        console.log(results);
+        // console.log(results);
         resultsEl.innerHTML = ""; //remove search on page 
         for (var i = 0; i < results.length; i++) {
           console.log(results[i].name);
