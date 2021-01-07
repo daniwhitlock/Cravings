@@ -240,7 +240,7 @@ function getTastyRecipes(food) {
       // console.log(results);
       resultsEl.innerHTML = ""; //remove search on page 
       for (var i = 0; i < results.length; i++) {
-        console.log(results);
+        // console.log(results);
         var recipeId = results[i].id;
         // console.log(recipeId);
 
@@ -318,16 +318,24 @@ function getTastyRecipes(food) {
             recipeImage: e.target.dataset.img,
             recipeVideo: e.target.dataset.video
           };
-          favoriteRecipes.push(object);
+          favoriteRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
           console.log(favoriteRecipes);
-          var recipeString = JSON.stringify(favoriteRecipes);
-          localStorage.setItem("savedRecipes", recipeString);
-        });
-      };
+          console.log(object);
+          if (!favoriteRecipes.includes(object)){
+            console.log("It wasn't in there");
+            favoriteRecipes.push(object);
+            console.log(favoriteRecipes);
+            var recipeString = JSON.stringify(favoriteRecipes);
+            localStorage.setItem("savedRecipes", recipeString);
+          };
+          
+
+      });
+};
     })
-    .catch(err => {
-      console.error(err);
-    });
+    .catch (err => {
+  console.error(err);
+});
 };
 
 // Need to figure out async and await 
@@ -368,28 +376,25 @@ recipeSubmitEl.addEventListener("click", function (e) {
 
 // add to My Favorites Page
 function displayRecipeLocalStorage() {
-  //  Need to append to: savedFavoriteRecipesEl or myFavoriteRecipesEl
+
   // Get items from local storage 
   var recipes = JSON.parse(localStorage.getItem("savedRecipes"));
   console.log(recipes);
- 
+
   for (var i = 0; i < recipes.length; i++) {
-
+    //make variables for recipe name, image, and video url
     var recipeFavName = recipes[i].recipeName;
-    console.log(recipeFavName);
-
+    // console.log(recipeFavName);
     var recipeFavImage = recipes[i].recipeImage;
-    console.log(recipeFavImage);
-
+    // console.log(recipeFavImage);
     var recipeFavVideo = recipes[i].recipeVideo;
-    console.log(recipeFavVideo);
+    // console.log(recipeFavVideo);
 
+    // Make 
     var col = document.createElement("div");
     col.setAttribute("class", "col");
-
     var card = document.createElement("div");
     card.setAttribute("class", "card");
-
 
     // add title/name
     var cardContent = document.createElement("div");
@@ -413,11 +418,11 @@ function displayRecipeLocalStorage() {
     var resultBtn = document.createElement("button");
     resultBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
     resultBtn.textContent = "Go to recipe video";
-    resultBtn.setAttribute("data-url", recipeFavVideo); 
+    resultBtn.setAttribute("data-url", recipeFavVideo);
     goToDiv.appendChild(resultBtn);
     card.appendChild(goToDiv);
 
-    
+
     col.appendChild(card);
     myFavoriteRecipesEl.appendChild(col);
   }
