@@ -35,7 +35,8 @@ function getZamatoLocation() {
       for (let i = 0; i < locSearchResults.length; i++) {
         let locButton = document.createElement("button");
         locButton.textContent = locSearchResults[i].title;
-        locButton.classList = "btn";
+        locButton.classList.add("btn", "button-margins");
+
         locButton.setAttribute(
           "data-entity-type",
           locSearchResults[i].entity_type
@@ -357,6 +358,4 @@ function getTastyRecipes() {
   
   // add to Favorites
   
-  
       //fetDetailsRecipe();
-

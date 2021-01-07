@@ -26,6 +26,7 @@ main {
     padding: 20px;
     flex: 1;
     flex-wrap: wrap;
+    background-color: #E4FCCD;
 }
 
 .card h2 {
@@ -40,11 +41,27 @@ main {
 .button-margins {
     margin: 5px;
 }
+
 a {
     color: white;
 }
 
 nav {
     padding: 30px;
-    background-color: #000C3F;
+    background-color: #00082B;
 }
+
+.nav-header {
+    color: #E4FCCD;
+    font-size: 130px;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #00082B;
+    color: #E4FCCD;
+    text-align: center;
+  }
