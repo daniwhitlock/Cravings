@@ -7,6 +7,7 @@ let foodTypeEl = document.querySelector("#foodtype");
 let resFoodType;
 var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grabs the first one- getElementById is more specific- don't need hashtag for getElementById- you do for querySelector
 var resultsEl = document.getElementById("recipe-box");
+var favoriteRecipes = {};
 
 function getZamatoLocation() {
   let apiUrl =
@@ -236,8 +237,7 @@ function getTastyRecipes() {
         // console.log(results);
         resultsEl.innerHTML = ""; //remove search on page 
         for (var i = 0; i < results.length; i++) {
-          console.log(results[i].name);
-  
+            
           var recipeId = results[i].id;
           console.log(recipeId);
   
@@ -255,7 +255,8 @@ function getTastyRecipes() {
           cardContent.setAttribute("class", "card-content");
           var spanCardContent = document.createElement("span");
           spanCardContent.setAttribute("class", "card-title");
-          spanCardContent.textContent = results[i].name;
+          var recipeName = results[i].name;
+          spanCardContent.textContent = recipeName;
   
           // add image of recipe
           var imageCard = document.createElement("img");
@@ -295,7 +296,7 @@ function getTastyRecipes() {
             // console.log(e.target.getAttribute("data-url")); //need getAttribute with data-url 
             window.open(e.target.getAttribute("data-url"), "_blank");
   
-            // Code to use if I figure out await and async
+            // Code to use if I figure out await and async and if api gets updates
                   // var id = e.target.value;
                   // var goToRecipeUrl = getRecipeUrl(id);
                   // console.log(goToRecipeUrl);
@@ -308,7 +309,14 @@ function getTastyRecipes() {
   
           });
   
-          //add to favorites event listener for button 
+          // add to favorites event listener 
+          addFavoritesBtn.addEventListener("click", function (){
+            
+            // favoriteRecipes = JSON.stringify()
+            var recipeNameString = JSON.stringify(recipeName);
+            localStorage.setItem(recipeId, recipeNameString);
+            console.log("set " + recipeName + " to storage");
+          });
           //what you store is an object underneath new key
           //name, image source, and id, video-url- store each on as an object
           //key is SavedRecipe = {}
