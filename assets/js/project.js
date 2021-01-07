@@ -7,7 +7,7 @@ let foodTypeEl = document.querySelector("#foodtype");
 let resFoodType;
 var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grabs the first one- getElementById is more specific- don't need hashtag for getElementById- you do for querySelector
 var resultsEl = document.getElementById("recipe-box");
-var favoriteRecipes = {};
+var favoriteRecipes = [];
 
 function getZamatoLocation() {
   let apiUrl =
@@ -242,7 +242,6 @@ function getTastyRecipes() {
           console.log(recipeId);
   
           var videoUrl = results[i].original_video_url;
-          console.log(recipeId + " video url = " + videoUrl);
           var col = document.createElement("div");
           col.setAttribute("class", "col");
   
@@ -288,8 +287,6 @@ function getTastyRecipes() {
           col.appendChild(card);
           resultsEl.appendChild(col);
   
-  
-  
           resultBtn.addEventListener("click", (e) => {
             // console.log(e.target.value);
             // console.log(e);
@@ -306,15 +303,21 @@ function getTastyRecipes() {
                   // else {
                   //   window.open(goToRecipeUrl, "_blank");
                   // }
-  
           });
   
           // add to favorites event listener 
-          addFavoritesBtn.addEventListener("click", function (){
+          addFavoritesBtn.addEventListener("click", function (i){
+            // console.log(e);
             
-            // favoriteRecipes = JSON.stringify()
-            var recipeNameString = JSON.stringify(recipeName);
-            localStorage.setItem(recipeId, recipeNameString);
+            var object = {
+              recipeName: results[i].name,
+              recipeImage: results[i].thumbnail_url,
+              recipeVideo: results[i].original_video_url
+            }
+            favoriteRecipes.push(object);
+            console.log(favoriteRecipes);
+            var recipeNameString = JSON.stringify(favoriteRecipes);
+            localStorage.setItem(recipeNameString);
             console.log("set " + recipeName + " to storage");
           });
           //what you store is an object underneath new key
