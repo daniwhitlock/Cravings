@@ -320,9 +320,12 @@ function getTastyRecipes(food) {
           recipeVideo: e.target.dataset.video,
           recipeId: e.target.dataset.id
         };
+        console.log(object);
+        var index = favoriteRecipes.findIndex(obj => obj.recipeId === object.recipeId);
+        console.log(index);
         favoriteRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
         console.log(favoriteRecipes);
-        console.log(object);
+        
         console.log(favoriteRecipes.indexOf(object));
         if (object === favoriteRecipes[0]){
           console.log("YES")
