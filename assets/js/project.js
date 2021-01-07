@@ -3,6 +3,8 @@ let restaurantSubmitEl = document.querySelector("#restaurant-form");
 let cityInputEl = document.querySelector("#city");
 let foodTypeEl = document.querySelector("#foodtype");
 let resFoodType;
+let modalEl = document.querySelector("#modal1");
+let modalBodyEl = document.querySelector("#modal-body");
 
 function getZamatoLocation() {
   let apiUrl =
@@ -27,32 +29,39 @@ function getZamatoLocation() {
       console.log(locSearchResults);
 
       // this endpoint responds with 10 matches for the location search; this for-loop creates a button for all 10 so users can select a specific one; the entity_id for each location is stored in the HTML data-entity-id attribute for later use (needed for other endpoints)
-      // buttons are currently put under top restaurants for testing, best UI may be in a modal?
-      for (let i = 0; i < locSearchResults.length; i++) {
-        let locButton = document.createElement("button");
-        locButton.textContent = locSearchResults[i].title;
-        locButton.classList = "btn";
-        locButton.setAttribute(
-          "data-entity-type",
-          locSearchResults[i].entity_type
-        );
 
-        if (
-          locSearchResults[i].entity_type === "subzone" ||
-          locSearchResults[i].entity_type === "group" ||
-          locSearchResults[i].entity_type === "zone"
-        ) {
+      if (locSearchResults.length > 1) {
+        for (let i = 0; i < locSearchResults.length; i++) {
+          let locButton = document.createElement("button");
+          locButton.textContent = locSearchResults[i].title;
+          locButton.classList = "btn loc-button";
           locButton.setAttribute(
-            "data-entity-id",
-            locSearchResults[i].entity_id
+            "data-entity-type",
+            locSearchResults[i].entity_type
           );
-        } else if (locSearchResults[i].entity_type === "city") {
-          locButton.setAttribute("data-entity-id", locSearchResults[i].city_id);
-        } else {
-          console.log("entity_type unaccounted for (Option " + i + ")");
-        }
 
-        restaurantBoxEl.appendChild(locButton);
+          if (
+            locSearchResults[i].entity_type === "subzone" ||
+            locSearchResults[i].entity_type === "group" ||
+            locSearchResults[i].entity_type === "zone"
+          ) {
+            locButton.setAttribute(
+              "data-entity-id",
+              locSearchResults[i].entity_id
+            );
+          } else if (locSearchResults[i].entity_type === "city") {
+            locButton.setAttribute(
+              "data-entity-id",
+              locSearchResults[i].city_id
+            );
+          } else {
+            console.log("entity_type unaccounted for (Option " + i + ")");
+          }
+
+          modalBodyEl.appendChild(locButton);
+        }
+        let instance = M.Modal.init(modalEl);
+        instance.open();
       }
     });
 }
@@ -196,9 +205,6 @@ function getTastyRecipes() {
 
 getTastyRecipes();
 
-// event listener for location list buttons
-restaurantBoxEl.addEventListener("click", locationClickHandler);
-
 var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grabs the first one- getElementById is more specific- don't need hashtag for getElementById- you do for querySelector
 var resultsEl = document.getElementById("recipe-results");
 
@@ -322,6 +328,9 @@ restaurantSubmitEl.addEventListener("submit", function (e) {
   resFoodType = foodTypeEl.value;
   getZamatoLocation();
 });
+
+// event listener for location list buttons
+modalEl.addEventListener("click", locationClickHandler);
 
 //add event listener for the pick up element by id
 // resultBtn.addEventListener("click", function(id){
