@@ -226,7 +226,7 @@ function getTastyRecipes(food) {
     {
       method: "GET",
       headers: {
-        "x-rapidapi-key": "15288d506amsh05d34758954291dp12fcfdjsna01465ebb20e",
+        "x-rapidapi-key": "985a36d33dmshfdc1a7657391b13p1bfc40jsn5520680f306f",
         "x-rapidapi-host": "tasty.p.rapidapi.com",
       },
     }
@@ -355,7 +355,7 @@ function getTastyRecipes(food) {
 //     {
 //       method: "GET",
 //       headers: {
-//         "x-rapidapi-key": "15288d506amsh05d34758954291dp12fcfdjsna01465ebb20e",
+//         "x-rapidapi-key": "985a36d33dmshfdc1a7657391b13p1bfc40jsn5520680f306f",
 //         "x-rapidapi-host": "tasty.p.rapidapi.com"
 //       },
 //     })
