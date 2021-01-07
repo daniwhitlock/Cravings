@@ -317,6 +317,12 @@ recipeSubmitEl.addEventListener("click", function (e) {
   getTastyRecipes(recipeType); //we are giving getTastyRecipe the recipe Type, getTastyRecipes reads it as food.
 });
 
+restaurantSubmitEl.addEventListener("submit", function (e) {
+  e.preventDefault();
+  resFoodType = foodTypeEl.value;
+  getZamatoLocation();
+});
+
 //add event listener for the pick up element by id
 // resultBtn.addEventListener("click", function(id){
 //     console.log(this);
