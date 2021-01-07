@@ -280,6 +280,9 @@ function getTastyRecipes() {
           var cardBtnDiv2 = document.createElement("div");
           var addFavoritesBtn = document.createElement("button");
           addFavoritesBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
+          addFavoritesBtn.setAttribute("data-name", results[i].name);
+          addFavoritesBtn.setAttribute("data-img", results[i].thumbnail_url);
+          addFavoritesBtn.setAttribute("data-videoUrl", videoUrl);
           addFavoritesBtn.textContent = "Add to Favorites";
           cardBtnDiv2.appendChild(addFavoritesBtn);
           card.appendChild(cardBtnDiv2);
@@ -306,19 +309,17 @@ function getTastyRecipes() {
           });
   
           // add to favorites event listener 
-          addFavoritesBtn.addEventListener("click", function (i){
-            // console.log(e);
-            
+          addFavoritesBtn.addEventListener("click", function (e){
+                        
             var object = {
-              recipeName: results[i].name,
-              recipeImage: results[i].thumbnail_url,
-              recipeVideo: results[i].original_video_url
+              recipeName: e.target.dataset.name,
+              recipeImage: e.target.dataset.img,
+              recipeVideo: e.target.dataset.videoUrl
             }
             favoriteRecipes.push(object);
             console.log(favoriteRecipes);
             var recipeNameString = JSON.stringify(favoriteRecipes);
             localStorage.setItem(recipeNameString);
-            console.log("set " + recipeName + " to storage");
           });
           //what you store is an object underneath new key
           //name, image source, and id, video-url- store each on as an object
@@ -367,7 +368,7 @@ function getTastyRecipes() {
   
   });
   
-  // add to Favorites
+  // add to My Favorites Page
   
   
       //fetDetailsRecipe();
