@@ -8,7 +8,7 @@ var resultsEl = document.getElementById("recipe-box");
 var favoriteRecipes = [];
 var savedFavoriteRecipesEl = document.getElementById("favorite-recipes");
 var myFavoriteRecipesEl = document.getElementById("fav-recipes");
-
+let savedRestaurantsEl = document.querySelector("#fav-restaurants");
 let modalEl = document.querySelector("#modal1");
 let modalBodyEl = document.querySelector("#modal-body");
 let instance = M.Modal.init(modalEl);
@@ -199,10 +199,17 @@ function getZamatoRestaurants(restaurantUrl) {
           directionEl.innerHTML =
             "<i class='material-icons'>directions</i>&nbsp;Get Directions";
 
+          let favoriteEl = document.createElement("button");
+          favoriteEl.classList = "res-link blue lighten-2 btn";
+          favoriteEl.setAttribute("data-script", "res-fave");
+          favoriteEl.innerHTML =
+            "<i class='material-icons'>save</i>&nbsp;Favorite";
+
           resCardEl.appendChild(cardTitleEl);
           cardBodyEl.appendChild(cardListEl);
           cardActionEl.appendChild(menuLinkEl);
           cardActionEl.appendChild(directionEl);
+          cardActionEl.appendChild(favoriteEl);
           resCardEl.appendChild(cardBodyEl);
           resCardEl.appendChild(cardActionEl);
           restaurantBoxEl.appendChild(resCardEl);
@@ -231,17 +238,41 @@ function locationClickHandler(event) {
 
     instance.close();
     getZamatoRestaurants(restaurantUrl);
-    getTastyRecipes(resFoodType);
+  } else if (event.target.getAttribute("data-script") === "res-fave") {
+    resFavorites(event);
   }
+}
+
+function renderSavedRestaurants() {
+  if (JSON.parse(localStorage.getItem("savedRestaurants"))) {
+    savedRestaurantsEl.innerHTML = "";
+    let savedRestaurants = JSON.parse(localStorage.getItem("savedRestaurants"));
+
+    for (const card of savedRestaurants) {
+      let resCardEl = document.createElement("div");
+      resCardEl.classList = "card res-card";
+      resCardEl.innerHTML = card;
+      savedRestaurantsEl.appendChild(resCardEl);
+    }
+  }
+}
+
+function resFavorites(event) {
+  let card = event.target.parentElement.parentElement;
+  let cardData = card.innerHTML;
+  let savedRestaurants =
+    JSON.parse(localStorage.getItem("savedRestaurants")) || [];
+
+  savedRestaurants.push(cardData);
+
+  localStorage.setItem("savedRestaurants", JSON.stringify(savedRestaurants));
+  renderSavedRestaurants();
 }
 
 // event listener for location list buttons
 restaurantBoxEl.addEventListener("click", locationClickHandler);
 
-
 // end zamato API function
-
-
 
 // start tasty API functions
 
@@ -271,7 +302,7 @@ function getTastyRecipes(food) {
 
         // Make column, add sizing for different screens
         var col = document.createElement("div");
-        col.classList = "col s12 m6"; 
+        col.classList = "col s12 m6";
 
         // Make card
         var recipeCard = document.createElement("div");
@@ -294,7 +325,7 @@ function getTastyRecipes(food) {
         var addLine = document.createElement("div");
         addLine.classList = "card-content";
 
-        // make button for go to recipe and add to favorites 
+        // make button for go to recipe and add to favorites
         var buttonDivEl = document.createElement("div");
         buttonDivEl.classList = "card-action";
 
@@ -306,7 +337,8 @@ function getTastyRecipes(food) {
         //   "btn",
         //   "button-margins"
         // );
-        resultBtn.classList.add( //matches Gavins
+        resultBtn.classList.add(
+          //matches Gavins
           "recipe-id",
           "teal",
           "lighten-2",
@@ -314,7 +346,8 @@ function getTastyRecipes(food) {
           "button-margins"
         );
         // resultBtn.textContent = "Go to recipe video";
-        resultBtn.innerHTML = "<i class='material-icons'>play_arrow</i>&nbsp;Go To Video";
+        resultBtn.innerHTML =
+          "<i class='material-icons'>play_arrow</i>&nbsp;Go To Video";
         resultBtn.value = recipeId;
         resultBtn.setAttribute("data-url", videoUrl); //assigning videoUrl to button
 
@@ -330,15 +363,16 @@ function getTastyRecipes(food) {
           "recipe-id",
           "red",
           "lighten-2",
-          "btn", 
+          "btn",
           "button-margins"
         );
         addFavoritesBtn.setAttribute("data-name", results[i].name);
         addFavoritesBtn.setAttribute("data-img", results[i].thumbnail_url);
         addFavoritesBtn.setAttribute("data-video", videoUrl);
         addFavoritesBtn.setAttribute("data-id", results[i].id);
-        addFavoritesBtn.innerHTML = "<i class='material-icons'>add</i>&nbsp;Favorites";
-        
+        addFavoritesBtn.innerHTML =
+          "<i class='material-icons'>add</i>&nbsp;Favorites";
+
         // append image and recipe name/title to card
         recipeCard.appendChild(cardTitleEl);
         imageHolder.appendChild(imageCard);
@@ -412,18 +446,17 @@ restaurantSubmitEl.addEventListener("submit", function (e) {
 // add to My Favorites Page
 function displayRecipeLocalStorage() {
   // Get items from local storage
-   if (!JSON.parse(localStorage.getItem("savedRecipes"))) {
-       return;
-    };
+  if (!JSON.parse(localStorage.getItem("savedRecipes"))) {
+    return;
+  }
 
   var recipes = JSON.parse(localStorage.getItem("savedRecipes"));
   console.log(recipes);
- 
+
   for (var i = 0; i < recipes.length; i++) {
-       
     // Make column, add sizing for different screens
     var col = document.createElement("div");
-    col.classList = "col s12 m6"; 
+    col.classList = "col s12 m6";
 
     // Make card
     var recipeCard = document.createElement("div");
@@ -435,48 +468,52 @@ function displayRecipeLocalStorage() {
     var recipeFavName = recipes[i].recipeName;
     cardTitleEl.textContent = recipeFavName;
 
-     // add image of recipe
-     var imageHolder = document.createElement("div");
-     imageHolder.classList = "card-image";
-     var imageCard = document.createElement("img");
-     var recipeFavImage = recipes[i].recipeImage;
-     imageCard.setAttribute("src", recipeFavImage);
-     imageCard.setAttribute("width", "150px");
-     
-     // make button for go to recipe and add to favorites 
-     var buttonDivEl = document.createElement("div");
-     buttonDivEl.classList = "card-action";
+    // add image of recipe
+    var imageHolder = document.createElement("div");
+    imageHolder.classList = "card-image";
+    var imageCard = document.createElement("img");
+    var recipeFavImage = recipes[i].recipeImage;
+    imageCard.setAttribute("src", recipeFavImage);
+    imageCard.setAttribute("width", "150px");
 
-     var resultBtn = document.createElement("button");
-     // resultBtn.classList.add( //matches Lexie's
-     //   "recipe-id",
-     //   "waves-effect",
-     //   "waves-light",
-     //   "btn",
-     //   "button-margins"
-     // );
-     resultBtn.classList.add( //matches Gavins
-       "recipe-id",
-       "teal",
-       "lighten-2",
-       "btn"
-     );
+    // make button for go to recipe and add to favorites
+    var buttonDivEl = document.createElement("div");
+    buttonDivEl.classList = "card-action";
+
+    var resultBtn = document.createElement("button");
+    // resultBtn.classList.add( //matches Lexie's
+    //   "recipe-id",
+    //   "waves-effect",
+    //   "waves-light",
+    //   "btn",
+    //   "button-margins"
+    // );
+    resultBtn.classList.add(
+      //matches Gavins
+      "recipe-id",
+      "teal",
+      "lighten-2",
+      "btn"
+    );
     // resultBtn.textContent = "Go to recipe video";
-    resultBtn.innerHTML = "<i class='material-icons'>play_arrow</i>&nbsp;Go To Video";
+    resultBtn.innerHTML =
+      "<i class='material-icons'>play_arrow</i>&nbsp;Go To Video";
     var recipeFavVideo = recipes[i].recipeVideo;
     resultBtn.setAttribute("data-url", recipeFavVideo);
 
-   // append image and recipe name/title to card
-   recipeCard.appendChild(cardTitleEl);
-   imageHolder.appendChild(imageCard);
-   recipeCard.appendChild(imageHolder);
-   buttonDivEl.appendChild(resultBtn);
-   recipeCard.appendChild(buttonDivEl);
-   col.appendChild(recipeCard);
-   myFavoriteRecipesEl.appendChild(col);
+    // append image and recipe name/title to card
+    recipeCard.appendChild(cardTitleEl);
+    imageHolder.appendChild(imageCard);
+    recipeCard.appendChild(imageHolder);
+    buttonDivEl.appendChild(resultBtn);
+    recipeCard.appendChild(buttonDivEl);
+    col.appendChild(recipeCard);
+    myFavoriteRecipesEl.appendChild(col);
   }
 }
 
 // event listener for location list buttons
 modalEl.addEventListener("click", locationClickHandler);
+
 displayRecipeLocalStorage();
+renderSavedRestaurants();
