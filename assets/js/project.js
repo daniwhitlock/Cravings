@@ -13,6 +13,11 @@ let modalEl = document.querySelector("#modal1");
 let modalBodyEl = document.querySelector("#modal-body");
 let instance = M.Modal.init(modalEl);
 
+//dropdown menu functionality
+$(document).ready(function () {
+  $("select").formSelect();
+});
+
 function getZamatoLocation() {
   let apiUrl =
     "https://developers.zomato.com/api/v2.1/locations?query=" +
@@ -257,11 +262,6 @@ getTastyRecipes();
 
 // event listener for location list buttons
 restaurantBoxEl.addEventListener("click", locationClickHandler);
-
-//dropdown menu functionality
-$(document).ready(function () {
-  $("select").formSelect();
-});
 
 function getTastyRecipes(food) {
   fetch(
