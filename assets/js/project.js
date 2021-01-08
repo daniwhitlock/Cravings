@@ -410,9 +410,13 @@ restaurantSubmitEl.addEventListener("submit", function (e) {
 // add to My Favorites Page
 function displayRecipeLocalStorage() {
   // Get items from local storage
+   if (!JSON.parse(localStorage.getItem("savedRecipes")) {
+       return;
+    };
+
   var recipes = JSON.parse(localStorage.getItem("savedRecipes"));
   console.log(recipes);
-
+ 
   for (var i = 0; i < recipes.length; i++) {
     //make variables for recipe name, image, and video url
     var recipeFavName = recipes[i].recipeName;
