@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>CRAVINGS</title>
 </head>
@@ -12,13 +13,14 @@
     <!-- header -->
     <nav class="nav-extended">
         <div class="nav-wrapper">
-          <span class="nav-title">CRAVINGS</span>
+          <span class="nav-header">CRAVINGS</span>
           <ul class="right">
             <li><a href="#fav-section" class="waves-effect waves-light btn">My Favorites</a></li> 
           </ul>
         </div>
         <div class="nav-content">
-          <span class="heading h5">Sometimes you just don't know what you want to eat. Many a fight has begun when couples or groups can't decide what to eat or where to eat.  Here at CRAVINGS, we've made it easy for you! With a click of a few buttons, you can easily view the top restaurants in your area or find top recipes for a specific food genre.  </span>
+          <span class="heading h5">Sometimes you just don't know what you want to eat. Many a fight has begun when couples or groups can't decide what to eat or where to eat.  Here at CRAVINGS, we've made it easy for you! With the click of a few buttons, you can easily view the top restaurants in your area or find top recipes for a specific food type.  </span>
+          
         </div>
     </nav>
 
@@ -27,7 +29,7 @@
         <div class="userInputForm card">
             <h2>Want To Go Out?</h2>
             <p>Enter your location and the food type you're craving to generate a list of local restaurants.</p>
-            <form>
+            <form id="restaurant-form">
                 <!-- city name textbox -->
                 <label for="city">Enter your city name</label>
                 <input type="text" placeholder="ex. Salt Lake City" name="city" id="city" class="form-input" />
@@ -48,23 +50,10 @@
                     <option value="93">Thai</option>
                     <option value="308">Vegetarian</option>
                 </select>
-                <button data-target="modal1" class="waves-effect waves-light btn modal-trigger">Submit</button>
+                <button class="waves-effect waves-light btn">Submit</button>
             </form>
         </div>
 
-        <!-- Modal Structure -->
-        <div id="modal1" class="modal">
-            <div class="modal-content">
-            <h4>Select your location</h4>
-            <div id="locationButtons">
-                
-            </div>
-            </div>
-            <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn">OK</a>
-            </div>
-        </div>
-        
         <div class="random card">
             <h2>Want To Stay In?</h2>
             <p>Enter the food type you're craving to pull up recipes.</p>
@@ -83,11 +72,12 @@
             <div id="restaurant-box">
 
             </div>
-
         </div>
-        <div class="results" >
+
+        <div class="results" id="recipe-results">
             <h3>Recipes</h3>
             <div id="recipe-box">
+
             </div>
 
         </div>
@@ -97,7 +87,7 @@
     <div class="fav-section" id ="fav-section">
         <div>
             <h2>
-                My Favorites
+                MY FAVORITES
             </h2>
 
         </div>
@@ -105,13 +95,13 @@
 
     <div class="container">
         <div class="favs">
-            <h3>My Favorite Restaurants</h3>
+            <h3>Favorite Restaurants</h3>
             <div id="fav-restuarants"></div>
 
         </div>
 
         <div class="favs" >
-            <h3>My Favorite Recipes</h3>
+            <h3>Favorite Recipes</h3>
             <div id="fav-recipes">
             </div>
 
@@ -119,8 +109,16 @@
         
     </div>
 
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+          <h4>Select Location</h4>
+          <div id="modal-body"></div>
+        </div>
+        <div class="modal-footer">
+          <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
+        </div>
+      </div>
 
-    
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -6,6 +6,7 @@ body {
     display: flex;
     flex-direction: column;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: #00082B
 }
 
 main {
@@ -26,6 +27,7 @@ main {
     padding: 20px;
     flex: 1;
     flex-wrap: wrap;
+    background-color: #E4FCCD;
 }
 
 .card h2 {
@@ -37,19 +39,55 @@ main {
     flex: 1;
 }
 
+.favs {
+    margin: 20px;
+    flex: 1;
+}
+
 .button-margins {
     margin: 5px;
 }
+
 a {
     color: white;
 }
 
+.loc-button {
+    display: block;
+}
+
+.btn i {
+    font-size: 14px;
+}
+
+.res-link {
+    margin-right: 6px;
+}
+
+.card .card-content {
+    padding: 0;
+}
+
+.card .card-action {
+    padding: 16px 24px 0 0;
+}
+
+#modal-body {
+    z-index: 99;
+}
+
 nav {
     padding: 30px;
-    background-color: #000C3F;
+    background-color: #00082B;
 }
+
+.nav-header {
+    color: #E4FCCD;
+    font-size: 130px;
+}
+
 .fav-section {
-    padding: 30px;
-    background-color: #000C3F;
-    color: white; 
+    padding: 10px 10px 10px 30px;
+    background-color: #00082B;
+    color: #E4FCCD;
 }
