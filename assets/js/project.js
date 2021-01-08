@@ -7,12 +7,15 @@ let foodTypeEl = document.querySelector("#foodtype");
 let resFoodType;
 var recipeSubmitEl = document.getElementById("recipe-btn"); //querySelector grabs the first one- getElementById is more specific- don't need hashtag for getElementById- you do for querySelector
 var resultsEl = document.getElementById("recipe-box");
+var favoriteRecipes = [];
+
+var savedFavoriteRecipesEl = document.getElementById("favorite-recipes");
+var myFavoriteRecipesEl = document.getElementById("fav-recipes");
 
 function getZamatoLocation() {
   let apiUrl =
     "https://developers.zomato.com/api/v2.1/locations?query=" +
-    cityInputEl.value +
-    "&count=10";
+    cityInputEl.value + "&count=10";
 
   fetch(apiUrl, {
     headers: {
@@ -137,7 +140,7 @@ function getZamatoRestaurants(restaurantUrl) {
           "href",
           new URL(
             "https://www.google.com/maps/dir/?api=1&destination=" +
-              resInfo[i].address
+            resInfo[i].address
           )
         );
         directionEl.setAttribute("target", "_blank");
@@ -181,181 +184,259 @@ function locationClickHandler(event) {
 //start tasty API functions
 
 function getTastyRecipes() {
-    fetch(
-      "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=italian",
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key": "09af83b4a4mshb4829f998e9809fp13521fjsn62893ece2ab2",
-          "x-rapidapi-host": "tasty.p.rapidapi.com",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then(function (data) {
-        console.log(data);
+  fetch(
+    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=italian",
+    {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "09af83b4a4mshb4829f998e9809fp13521fjsn62893ece2ab2",
+        "x-rapidapi-host": "tasty.p.rapidapi.com",
+      },
+    }
+  )
+    .then((response) => {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+    });
+}
+
+getZamatoLocation();
+getTastyRecipes();
+displayRecipeLocalStorage();
+
+// event listener for location list buttons
+restaurantBoxEl.addEventListener("click", locationClickHandler);
+
+
+//dropdown menu functionality
+$(document).ready(function () {
+  $('select').formSelect();
+});
+
+//modal functionality
+$(document).ready(function () {
+  $('.modal').modal();
+});
+
+
+function getTastyRecipes(food) {
+  fetch(
+    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&tags=" + food,
+    {
+      method: "GET",
+      headers: {
+        "x-rapidapi-key": "985a36d33dmshfdc1a7657391b13p1bfc40jsn5520680f306f",
+        "x-rapidapi-host": "tasty.p.rapidapi.com",
+      },
+    }
+  )
+  .then((response) => {
+    return response.json();
+  })
+  .then(function (data) {
+    // console.log(data);
+    var results = data.results;
+    // console.log(results);
+    resultsEl.innerHTML = ""; //remove search on page 
+    for (var i = 0; i < results.length; i++) {
+      // console.log(results);
+      var recipeId = results[i].id;
+      // console.log(recipeId);
+
+      var videoUrl = results[i].original_video_url;
+      var col = document.createElement("div");
+      col.setAttribute("class", "col");
+
+      var card = document.createElement("div");
+      card.setAttribute("class", "card");
+
+
+      // add title = recipe name
+      var cardContent = document.createElement("div");
+      cardContent.setAttribute("class", "card-content");
+      var spanCardContent = document.createElement("span");
+      spanCardContent.setAttribute("class", "card-title");
+      var recipeName = results[i].name;
+      spanCardContent.textContent = recipeName;
+
+      // add image of recipe
+      var imageCard = document.createElement("img");
+      imageCard.setAttribute("src", results[i].thumbnail_url);
+      imageCard.setAttribute("width", "150px");
+
+      // append image and recipe name/title to card
+      cardContent.appendChild(spanCardContent);
+      card.appendChild(cardContent);
+      card.appendChild(imageCard);
+
+      // make button for go to recipe and add to favorites and append to page
+      var goToDiv = document.createElement("div");
+      var resultBtn = document.createElement("button");
+      resultBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
+      resultBtn.textContent = "Go to recipe video";
+      resultBtn.value = recipeId;
+      resultBtn.setAttribute("data-url", videoUrl); //assigning videoUrl to button
+      goToDiv.appendChild(resultBtn);
+      card.appendChild(goToDiv);
+
+      var cardBtnDiv2 = document.createElement("div");
+      var addFavoritesBtn = document.createElement("button");
+      addFavoritesBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
+      addFavoritesBtn.setAttribute("data-name", results[i].name);
+      addFavoritesBtn.setAttribute("data-img", results[i].thumbnail_url);
+      addFavoritesBtn.setAttribute("data-video", videoUrl);
+      addFavoritesBtn.setAttribute("data-id", results[i].id);
+      addFavoritesBtn.textContent = "Add to Favorites";
+      cardBtnDiv2.appendChild(addFavoritesBtn);
+      card.appendChild(cardBtnDiv2);
+
+      col.appendChild(card);
+      resultsEl.appendChild(col);
+
+      resultBtn.addEventListener("click", (e) => {
+        // console.log(e.target.value);
+        // console.log(e);
+        // console.log(e.target.getAttribute("data-url")); //need getAttribute with data-url 
+        window.open(e.target.getAttribute("data-url"), "_blank");
+
+        // Code to use if I figure out await and async and if api gets updates
+        // var id = e.target.value;
+        // var goToRecipeUrl = getRecipeUrl(id);
+        // console.log(goToRecipeUrl);
+        // if (goToRecipeUrl === null || goToRecipeUrl === undefined) {
+        //   window.open(e.target.getAttribute("data-url"), "_blank");
+        // }
+        // else {
+        //   window.open(goToRecipeUrl, "_blank");
+        // }
       });
-  }
-  
-  getZamatoLocation();
-  getTastyRecipes();
-  
-  // event listener for location list buttons
-  restaurantBoxEl.addEventListener("click", locationClickHandler);
-  
-  
-  //dropdown menu functionality
-  $(document).ready(function () {
-    $('select').formSelect();
-  });
-  
-  //modal functionality
-  $(document).ready(function(){
-    $('.modal').modal();
-  });
-  
-  
-  function getTastyRecipes(food) {
-    fetch(
-      "https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&tags=" + food,
-      {
-        method: "GET",
-        headers: {
-          "x-rapidapi-key": "15288d506amsh05d34758954291dp12fcfdjsna01465ebb20e",
-          "x-rapidapi-host": "tasty.p.rapidapi.com",
-        },
-      }
-    )
-      .then((response) => {
-        return response.json();
-      })
-      .then(function (data) {
-        // console.log(data);
-        var results = data.results;
-        // console.log(results);
-        resultsEl.innerHTML = ""; //remove search on page 
-        for (var i = 0; i < results.length; i++) {
-          console.log(results[i].name);
-  
-          var recipeId = results[i].id;
-          console.log(recipeId);
-  
-          var videoUrl = results[i].original_video_url;
-          console.log(recipeId + " video url = " + videoUrl);
-          var col = document.createElement("div");
-          col.setAttribute("class", "col");
-  
-          var card = document.createElement("div");
-          card.setAttribute("class", "card");
-  
-  
-          // add title = recipe name
-          var cardContent = document.createElement("div");
-          cardContent.setAttribute("class", "card-content");
-          var spanCardContent = document.createElement("span");
-          spanCardContent.setAttribute("class", "card-title");
-          spanCardContent.textContent = results[i].name;
-  
-          // add image of recipe
-          var imageCard = document.createElement("img");
-          imageCard.setAttribute("src", results[i].thumbnail_url);
-          imageCard.setAttribute("width", "150px");
-  
-          // append image and recipe name/title to card
-          cardContent.appendChild(spanCardContent);
-          card.appendChild(cardContent);
-          card.appendChild(imageCard);
-  
-          // make button for go to recipe and add to favorites and append to page
-          var goToDiv = document.createElement("div");
-          var resultBtn = document.createElement("button");
-          resultBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
-          resultBtn.textContent = "Go to recipe video";
-          resultBtn.value = recipeId;
-          resultBtn.setAttribute("data-url", videoUrl); //assigning videoUrl to button
-          goToDiv.appendChild(resultBtn);
-          card.appendChild(goToDiv);
-  
-          var cardBtnDiv2 = document.createElement("div");
-          var addFavoritesBtn = document.createElement("button");
-          addFavoritesBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
-          addFavoritesBtn.textContent = "Add to Favorites";
-          cardBtnDiv2.appendChild(addFavoritesBtn);
-          card.appendChild(cardBtnDiv2);
-  
-          col.appendChild(card);
-          resultsEl.appendChild(col);
-  
-  
-  
-          resultBtn.addEventListener("click", (e) => {
-            // console.log(e.target.value);
-            // console.log(e);
-            // console.log(e.target.getAttribute("data-url")); //need getAttribute with data-url 
-            window.open(e.target.getAttribute("data-url"), "_blank");
-  
-            // Code to use if I figure out await and async
-                  // var id = e.target.value;
-                  // var goToRecipeUrl = getRecipeUrl(id);
-                  // console.log(goToRecipeUrl);
-                  // if (goToRecipeUrl === null || goToRecipeUrl === undefined) {
-                  //   window.open(e.target.getAttribute("data-url"), "_blank");
-                  // }
-                  // else {
-                  //   window.open(goToRecipeUrl, "_blank");
-                  // }
-  
-          });
-  
-          //add to favorites event listener for button 
-          //what you store is an object underneath new key
-          //name, image source, and id, video-url- store each on as an object
-          //key is SavedRecipe = {}
-  
+
+      // add to favorites event listener 
+      addFavoritesBtn.addEventListener("click", function (e) {
+        var object = {
+          recipeName: e.target.dataset.name,
+          recipeImage: e.target.dataset.img,
+          recipeVideo: e.target.dataset.video,
+          recipeId: e.target.dataset.id
         };
-      })
-      .catch(err => {
-        console.error(err);
+        console.log(object);
+        var index = favoriteRecipes.findIndex(obj => obj.recipeId === object.recipeId);
+        console.log(index);
+        favoriteRecipes = JSON.parse(localStorage.getItem("savedRecipes")) || [];
+        console.log(favoriteRecipes);
+        
+        console.log(favoriteRecipes.indexOf(object));
+        if (object === favoriteRecipes[0]){
+          console.log("YES")
+          }
+          else{
+          console.log("NO")
+          }
+        if (favoriteRecipes.indexOf(object) === -1) {
+          console.log("It wasn't in there");
+          favoriteRecipes.push(object);
+          console.log(favoriteRecipes);
+          var recipeString = JSON.stringify(favoriteRecipes);
+          localStorage.setItem("savedRecipes", recipeString);
+        };
       });
-  };
-  
-  // Need to figure out async and await 
-      // async function getRecipeUrl(id) {
-      //   await fetch("https://tasty.p.rapidapi.com/recipes/detail?id=" + id,
-      //     {
-      //       method: "GET",
-      //       headers: {
-      //         "x-rapidapi-key": "15288d506amsh05d34758954291dp12fcfdjsna01465ebb20e",
-      //         "x-rapidapi-host": "tasty.p.rapidapi.com"
-      //       },
-      //     })
-      //     .then((response) => {
-      //       return response.json();
-      //     })
-      //     .then(function (data) {
-      //       console.log(data);
-  
-      //       var goToRecipeUrl = data.inspired_by_url;
-      //       console.log("id: " + id + "  url: " + goToRecipeUrl);
-  
-      //       return goToRecipeUrl; //not sure if that is how I push that value back to the event listener
-  
-      //     })
-      //     .catch(err => {
-      //       console.error(err);
-      //     });
-      // }
-  
-  recipeSubmitEl.addEventListener("click", function (e) {
-    e.preventDefault(); //prevent the default
-    var recipeType = document.getElementById("food-type").value;
-    console.log(recipeType);
-    getTastyRecipes(recipeType); // we are giving getTastyRecipe the recipeType, getTastyRecipes reads it as food. 
-  
+      
+    };
+  })
+  .catch (err => {
+    console.error(err);
   });
-  
-  // add to Favorites
-  
-      //fetDetailsRecipe();
+};
+
+// Need to figure out async and await 
+// async function getRecipeUrl(id) {
+//   await fetch("https://tasty.p.rapidapi.com/recipes/detail?id=" + id,
+//     {
+//       method: "GET",
+//       headers: {
+//         "x-rapidapi-key": "985a36d33dmshfdc1a7657391b13p1bfc40jsn5520680f306f",
+//         "x-rapidapi-host": "tasty.p.rapidapi.com"
+//       },
+//     })
+//     .then((response) => {
+//       return response.json();
+//     })
+//     .then(function (data) {
+//       console.log(data);
+
+//       var goToRecipeUrl = data.inspired_by_url;
+//       console.log("id: " + id + "  url: " + goToRecipeUrl);
+
+//       return goToRecipeUrl; //not sure if that is how I push that value back to the event listener
+
+//     })
+//     .catch(err => {
+//       console.error(err);
+//     });
+// }
+
+recipeSubmitEl.addEventListener("click", function (e) {
+  e.preventDefault(); //prevent the default
+  var recipeTypeInput = document.getElementById("food-type").value;
+  // console.log(recipeTypeInput);
+  var recipeType = recipeTypeInput.toLowerCase();
+  getTastyRecipes(recipeType); // we are giving getTastyRecipe the recipeType, getTastyRecipes reads it as food. 
+
+});
+
+// add to My Favorites Page
+function displayRecipeLocalStorage() {
+
+  // Get items from local storage 
+  var recipes = JSON.parse(localStorage.getItem("savedRecipes"));
+  console.log(recipes);
+
+  for (var i = 0; i < recipes.length; i++) {
+    //make variables for recipe name, image, and video url
+    var recipeFavName = recipes[i].recipeName;
+    // console.log(recipeFavName);
+    var recipeFavImage = recipes[i].recipeImage;
+    // console.log(recipeFavImage);
+    var recipeFavVideo = recipes[i].recipeVideo;
+    // console.log(recipeFavVideo);
+
+    // Make 
+    var col = document.createElement("div");
+    col.setAttribute("class", "col");
+    var card = document.createElement("div");
+    card.setAttribute("class", "card");
+
+    // add title/name
+    var cardContent = document.createElement("div");
+    cardContent.setAttribute("class", "card-content");
+    var spanCardContent = document.createElement("span");
+    spanCardContent.setAttribute("class", "card-title");
+    spanCardContent.textContent = recipeFavName;
+
+    // add image of recipe
+    var imageCard = document.createElement("img");
+    imageCard.setAttribute("src", recipeFavImage);
+    imageCard.setAttribute("width", "150px");
+
+    // append image and recipe name/title to card
+    cardContent.appendChild(spanCardContent);
+    card.appendChild(cardContent);
+    card.appendChild(imageCard);
+
+    // make button for go to recipe and add to favorites and append to page
+    var goToDiv = document.createElement("div");
+    var resultBtn = document.createElement("button");
+    resultBtn.classList.add("recipe-id", "waves-effect", "waves-light", "btn", "button-margins");
+    resultBtn.textContent = "Go to recipe video";
+    resultBtn.setAttribute("data-url", recipeFavVideo);
+    goToDiv.appendChild(resultBtn);
+    card.appendChild(goToDiv);
+
+
+    col.appendChild(card);
+    myFavoriteRecipesEl.appendChild(col);
+  }
+
+};

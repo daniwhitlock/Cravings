@@ -48,6 +48,7 @@ a {
 
 nav {
     padding: 30px;
+<<<<<<< HEAD
     background-color: #00082B;
 }
 
@@ -65,3 +66,12 @@ footer {
     color: #E4FCCD;
     text-align: center;
   }
+=======
+    background-color: #000C3F;
+}
+.fav-section {
+    padding: 30px;
+    background-color: #000C3F;
+    color: white; 
+}
+>>>>>>> feature/new-recipe-add-favorites
