@@ -154,7 +154,7 @@ function getZamatoRestaurants(restaurantUrl) {
       } else {
         for (let i = 0; i < resInfo.length; i++) {
           let resCardEl = document.createElement("div");
-          resCardEl.classList = "card res-card small-card"; //added small-card to get restaurant and recipe cards to have same height
+          resCardEl.classList = "card res-card "; 
           console.log(resInfo.redId);
 
           let cardTitleEl = document.createElement("span");
@@ -275,7 +275,7 @@ function getTastyRecipes(food) {
 
         // Make card
         var recipeCard = document.createElement("div");
-        recipeCard.classList = "card small-cards";
+        recipeCard.classList = "card"; //took out "small-cards" to see if that helped it. 
 
         // add title = recipe name
         var titleContainerEl = document.createElement("div");
