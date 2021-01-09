@@ -5,7 +5,8 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Oxygen', sans-serif;
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
     color: #00082B
 }
 
@@ -57,7 +58,7 @@ a {
 }
 
 .btn i {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .res-link {
@@ -77,17 +78,35 @@ a {
 }
 
 nav {
-    padding: 30px;
+    padding: 10px;
+    background-color: white;
+    border: none;
+    box-shadow: none;
+    /* background-color: #00082B; */
+}
+
+.pre-header {
     background-color: #00082B;
+    /* background-image: linear-gradient( #E4FCCD, #00082B) ; */
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    font-weight: 500;
+    border-bottom: solid 5px;
+    border-color: #E4FCCD;
+
 }
 
 .nav-header {
-    color: #E4FCCD;
-    font-size: 130px;
+    color:  #00082B;
+    font-size: 70px;
+    font-weight: 300;
 }
 
 .fav-section {
     padding: 10px 10px 10px 30px;
-    background-color: #00082B;
+    background-color:;
     color: #E4FCCD;
 }

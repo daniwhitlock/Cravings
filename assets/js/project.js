@@ -337,7 +337,7 @@ function getTastyRecipes(food) {
         addFavoritesBtn.setAttribute("data-img", results[i].thumbnail_url);
         addFavoritesBtn.setAttribute("data-video", videoUrl);
         addFavoritesBtn.setAttribute("data-id", results[i].id);
-        addFavoritesBtn.innerHTML = "<i class='material-icons'>add</i>&nbsp;Favorites";
+        addFavoritesBtn.innerHTML = "<i class='material-icons'>favorite</i>&nbsp;Favorites";
         
         // append image and recipe name/title to card
         recipeCard.appendChild(cardTitleEl);
