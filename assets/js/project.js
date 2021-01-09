@@ -8,6 +8,8 @@ var resultsEl = document.getElementById("recipe-box");
 var favoriteRecipes = [];
 var savedFavoriteRecipesEl = document.getElementById("favorite-recipes");
 var myFavoriteRecipesEl = document.getElementById("fav-recipes");
+var placeholder1El = document.getElementById("placeholder");
+var placeholder2El = document.getElementById("placeholder2");
 
 let modalEl = document.querySelector("#modal1");
 let modalBodyEl = document.querySelector("#modal-body");
@@ -125,6 +127,9 @@ function getZamatoRestaurants(restaurantUrl) {
     })
     .then(function (data) {
       console.log(data);
+
+      //clear out placeholder
+      placeholder1El.innerHTML = "";
 
       let resInfo = [];
 
@@ -260,6 +265,8 @@ function getTastyRecipes(food) {
       return response.json();
     })
     .then(function (data) {
+      //clear out placeholder
+      placeholder2El.innerHTML = "";
       // console.log(data);
       var results = data.results;
       // console.log(results);

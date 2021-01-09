@@ -24,21 +24,13 @@
     </header>
     <nav class="nav-extended">
         <div class="nav-wrapper">
-            <span class="fas fa-utensils fa-6x right-space" style ="color:#00082B"></span>
-          <!-- <span class="fas fa-smile-beam fa-4x" style ="color:#00082B"></span> -->
-          <span class="nav-header">CRAVINGS</span>
-         
-          
-         
+        <span class="fas fa-utensils fa-6x right-space" style ="color:#00082B"></span>
+        <span class="nav-header">CRAVINGS</span>
           <ul class="right">
             <!-- <li><a href="#fav-section" class="waves-effect waves-light teal btn">My Favorites</a></li>  -->
             <li><a href="#fav-section" class="nav-bar">My Favorites</a></li> 
           </ul>
         </div>
-        <!-- <div class="nav-content">
-          <span class="heading h5">Sometimes you just don't know what you want to eat. Many a fight has begun when couples or groups can't decide what to eat or where to eat.  Here at CRAVINGS, we've made it easy for you! With the click of a few buttons, you can easily view the top restaurants in your area or find top recipes for a specific food type.  </span> -->
-          
-        <!-- </div> --> 
     </nav>
 
     <!-- forms -->
@@ -82,32 +74,33 @@
         </div>
     </div>
    
-
     <!-- results -->
     <div class="container">
         <div class="results">
             <h3>Restaurants</h3>
             <div id="restaurant-box">
-
+                <div class="card placeholder-text" id="placeholder">
+                    Enter your city and food-type in "What To Go Out?"
+                </div>
             </div>
         </div>
 
         <div class="results" id="recipe-results">
             <h3>Recipes</h3>
             <div id="recipe-box">
-
+                <div class="card placeholder-text" id="placeholder2">
+                    Enter your food-type in "What To Stay In?"
+                </div>
             </div>
-
         </div>
-        
     </div>
 
     <div class="fav-section" id ="fav-section">
-        <div>
-            <h2>
-                MY FAVORITES
-            </h2>
-
+        <div class="fav-title">
+            <span class="fas fa-heart right-space" style="color:white"></span>
+            <span>
+                FAVORITES
+            </span>
         </div>
     </div>
 
@@ -115,16 +108,14 @@
         <div class="favs">
             <h3>Favorite Restaurants</h3>
             <div id="fav-restuarants"></div>
-
+           
         </div>
 
         <div class="favs" >
             <h3>Favorite Recipes</h3>
             <div id="fav-recipes">
             </div>
-
         </div>
-        
     </div>
 
     <div id="modal1" class="modal">
@@ -136,6 +127,13 @@
           <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
         </div>
       </div>
+
+
+    <footer>
+        <h2 class="pre-header padding-footer">
+            Helping Hangry People Everywhere
+        </h2>
+    </footer>
 
 
     <!-- jquery -->

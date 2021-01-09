@@ -122,18 +122,28 @@ nav {
     color:  #00082B;
     font-size: 6em;
     font-weight: 350;
-
 }
 
 .fav-section {
     padding: 0;
     border-top: solid 8px #E4FCCD;
+    border-bottom: solid 8px #E4FCCD;
     background-color: #00082B;
-    border-bottom: solid 3px #00082B;
-}
-.fav-background {
-    background: #00082B;
     color: white;
+    font-size: 4em;
+}
+.fav-title {
+    padding-left: 20px;
+}
+
+.padding-footer {
+    padding-top: 15px;
+    padding-bottom: 15px
+}
+
+.placeholder-text {
+    text-align: center;
+    font-style: italic;
 }
 
 .card-image {
