@@ -249,7 +249,7 @@ restaurantBoxEl.addEventListener("click", locationClickHandler);
 
 function getTastyRecipes(food) {
   fetch(
-    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=2&tags=" + food,
+    "https://tasty.p.rapidapi.com/recipes/list?from=0&size=4&tags=" + food,
     {
       method: "GET",
       headers: {
@@ -322,13 +322,6 @@ function getTastyRecipes(food) {
         var addFavoritesBtnDiv = document.createElement("div");
         addFavoritesBtnDiv.classList = "recipe-btn-divs";
         var addFavoritesBtn = document.createElement("button");
-        // addFavoritesBtn.classList.add(
-        //   "recipe-id",
-        //   "waves-effect",
-        //   "waves-light",
-        //   "btn",
-        //   "button-margins"
-        // );
         addFavoritesBtn.classList.add(
           "recipe-id",
           "red",
@@ -376,27 +369,22 @@ function getTastyRecipes(food) {
             recipeId: e.target.dataset.id,
           };
           console.log(object);
-          var index = favoriteRecipes.findIndex(
-            (obj) => obj.recipeId === object.recipeId
-          );
-          console.log(index);
-          favoriteRecipes =
-            JSON.parse(localStorage.getItem("savedRecipes")) || [];
-          console.log(favoriteRecipes);
 
-          console.log(favoriteRecipes.indexOf(object));
-          if (object === favoriteRecipes[0]) {
-            console.log("YES");
-          } else {
-            console.log("NO");
-          }
-          if (favoriteRecipes.indexOf(object) === -1) {
+          favoriteRecipes =JSON.parse(localStorage.getItem("savedRecipes")) || [];
+          console.log(favoriteRecipes);
+          favoriteRecipes.map(obj => {console.log(obj.recipeId)})
+          var index = favoriteRecipes.findIndex(obj => obj.recipeId === object.recipeId);
+          console.log("index: ", index);
+
+          if (index === -1) {
             console.log("It wasn't in there");
             favoriteRecipes.push(object);
             console.log(favoriteRecipes);
             var recipeString = JSON.stringify(favoriteRecipes);
             localStorage.setItem("savedRecipes", recipeString);
-          }
+            displayRecipeLocalStorage();
+          };
+        
         });
       }
     })
@@ -421,14 +409,16 @@ restaurantSubmitEl.addEventListener("submit", function (e) {
 
 // add to My Favorites Page
 function displayRecipeLocalStorage() {
+  
   // Get items from local storage
    if (!JSON.parse(localStorage.getItem("savedRecipes"))) {
        return;
     };
-
+  myFavoriteRecipesEl.innerHTML = "";
   var recipes = JSON.parse(localStorage.getItem("savedRecipes"));
   console.log(recipes);
- 
+  
+  
   for (var i = 0; i < recipes.length; i++) {
        
     // Make column, add sizing for different screens
@@ -466,14 +456,7 @@ function displayRecipeLocalStorage() {
 
     var resultBtnDiv = document.createElement("div");
     resultBtnDiv.classList = "recipe-btn-divs";
-     var resultBtn = document.createElement("button");
-     // resultBtn.classList.add( //matches Lexie's
-     //   "recipe-id",
-     //   "waves-effect",
-     //   "waves-light",
-     //   "btn",
-     //   "button-margins"
-     // );
+    var resultBtn = document.createElement("button");
      resultBtn.classList.add("recipe-id","teal","lighten-2","btn","button-margins");
     resultBtn.innerHTML = "<i class='material-icons'>play_arrow</i>&nbsp;Go To Video";
     var recipeFavVideo = recipes[i].recipeVideo;
