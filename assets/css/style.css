@@ -5,7 +5,8 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-family: 'Oxygen', sans-serif;
+    /* font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
     color: #00082B
 }
 
@@ -19,7 +20,6 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    
 }
 
 .card {
@@ -28,6 +28,9 @@ main {
     flex: 1;
     flex-wrap: wrap;
     background-color: #E4FCCD;
+}
+.small-cards {
+    height: 225px;
 }
 
 .card h2 {
@@ -57,7 +60,7 @@ a {
 }
 
 .btn i {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .res-link {
@@ -77,17 +80,94 @@ a {
 }
 
 nav {
-    padding: 30px;
+    padding: 10px;
+    background-color: white;
+    border: none;
+    box-shadow: none;
+    /* background-color: #00082B; */
+}
+
+.pre-header {
     background-color: #00082B;
+    /* background-image: linear-gradient( #E4FCCD, #00082B) ; */
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    padding: 10px;
+    margin: 0;
+    font-weight: 500;
+    border-bottom: solid 8px #E4FCCD;
+
+}
+.nav-wrapper {
+    
+    padding: 10px 50px 0px 50px;
+    
+}
+.nav-bar {
+    color: #00082B;
+    font-size: 30px;
+    text-transform: uppercase;
+
+}
+.right-space {
+    padding-right: 10px;
+}
+.nav-extended {
+    padding: 0;
+    border-bottom: solid 3px #00082B;
 }
 
 .nav-header {
-    color: #E4FCCD;
-    font-size: 130px;
+    color:  #00082B;
+    font-size: 6em;
+    font-weight: 350;
 }
 
 .fav-section {
-    padding: 10px 10px 10px 30px;
+    padding: 0;
+    border-top: solid 8px #E4FCCD;
+    border-bottom: solid 8px #E4FCCD;
     background-color: #00082B;
-    color: #E4FCCD;
+    color: white;
+    font-size: 4em;
+}
+.fav-title {
+    padding-left: 20px;
+}
+
+.padding-footer {
+    padding-top: 15px;
+    padding-bottom: 15px
+}
+
+.placeholder-text {
+    text-align: center;
+    font-style: italic;
+}
+
+.card-image {
+    display: inline-block;
+    width: 51%;
+    padding: 5px;
+}
+
+img {
+    width:65%;
+}
+
+.recipe-card-container {
+    display: flex;
+    justify-content: space-evenly; 
+    align-items: center;
+}
+
+.recipe-card-content {
+    display: inline-block;
+    /* margin-left: 20px; */
+    /* justify-content: flex-end; */
+}
+.recipe-button-divs {
+    justify-content: center;
+    transform: translate(-50%, -50%);
 }

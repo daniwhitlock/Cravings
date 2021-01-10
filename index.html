@@ -5,22 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- materialize -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/v4-shims.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>CRAVINGS</title>
 </head>
 <body>
+
     <!-- header -->
+    <header>
+        <h2 class="pre-header">
+            Helping Hangry People Everywhere
+        </h2>
+    </header>
+
     <nav class="nav-extended">
         <div class="nav-wrapper">
-          <span class="nav-header">CRAVINGS</span>
-          <ul class="right">
-            <li><a href="#fav-section" class="waves-effect waves-light btn">My Favorites</a></li> 
-          </ul>
-        </div>
-        <div class="nav-content">
-          <span class="heading h5">Sometimes you just don't know what you want to eat. Many a fight has begun when couples or groups can't decide what to eat or where to eat.  Here at CRAVINGS, we've made it easy for you! With the click of a few buttons, you can easily view the top restaurants in your area or find top recipes for a specific food type.  </span>
-          
+            <span class="fas fa-utensils fa-6x right-space" style ="color:#00082B"></span>
+            <span class="nav-header">CRAVINGS</span>
+            <ul class="right">
+                <!-- <li><a href="#fav-section" class="waves-effect waves-light teal btn">My Favorites</a></li>  -->
+                <li><a href="#fav-section" class="nav-bar">My Favorites</a></li> 
+            </ul>
         </div>
     </nav>
 
@@ -64,32 +73,35 @@
             </form>
         </div>
     </div>
-
+   
     <!-- results -->
     <div class="container">
         <div class="results">
             <h3>Restaurants</h3>
             <div id="restaurant-box">
-
+                <div class="card placeholder-text" id="placeholder">
+                    Enter your city and food-type in "Want To Go Out?"
+                </div>
             </div>
         </div>
 
         <div class="results" id="recipe-results">
             <h3>Recipes</h3>
             <div id="recipe-box">
-
+                <div class="card placeholder-text" id="placeholder2">
+                    Enter your food-type in "Want To Stay In?"
+                </div>
             </div>
-
         </div>
-        
     </div>
 
+    <!-- favorites section -->
     <div class="fav-section" id ="fav-section">
-        <div>
-            <h2>
-                MY FAVORITES
-            </h2>
-
+        <div class="fav-title">
+            <span class="fas fa-heart right-space" style="color:white"></span>
+            <span>
+                FAVORITES
+            </span>
         </div>
     </div>
 
@@ -104,11 +116,10 @@
             <h3>Favorite Recipes</h3>
             <div id="fav-recipes">
             </div>
-
         </div>
-        
     </div>
 
+    <!-- location selection modal -->
     <div id="modal1" class="modal">
         <div class="modal-content">
           <h4>Select Location</h4>
@@ -117,7 +128,14 @@
         <div class="modal-footer">
           <a href="#!" class="modal-close waves-effect waves-green btn">Cancel</a>
         </div>
-      </div>
+    </div>
+
+    <!-- footer -->
+    <footer>
+        <h2 class="pre-header padding-footer">
+            Helping Hangry People Everywhere
+        </h2>
+    </footer>
 
 
     <!-- jquery -->
