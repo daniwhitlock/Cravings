@@ -100,7 +100,7 @@ function getZamatoLocation() {
           entityId +
           "&entity_type=" +
           entityType +
-          "&count=10&cuisines=" +
+          "&count=2&cuisines=" +
           resFoodType +
           "&sort=rating&order=desc";
 
@@ -243,10 +243,7 @@ function locationClickHandler(event) {
 // event listener for location list buttons
 restaurantBoxEl.addEventListener("click", locationClickHandler);
 
-
 // end zamato API function
-
-
 
 // start tasty API functions
 
