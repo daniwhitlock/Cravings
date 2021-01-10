@@ -185,14 +185,14 @@ function getZamatoRestaurants(restaurantUrl) {
           cardActionEl.classList = "card-action";
 
           let menuLinkEl = document.createElement("a");
-          menuLinkEl.classList = "res-link teal lighten-2 btn";
+          menuLinkEl.classList = "res-link teal lighten-2 button-margins btn";
           menuLinkEl.setAttribute("href", resInfo[i].menu);
           menuLinkEl.setAttribute("target", "_blank");
           menuLinkEl.innerHTML =
             "<i class='material-icons'>restaurant_menu</i>&nbsp;View Menu";
 
           let directionEl = document.createElement("a");
-          directionEl.classList = "res-link red lighten-2 btn";
+          directionEl.classList = "res-link teal lighten-2 button-margins btn";
           directionEl.setAttribute(
             "href",
             new URL(
@@ -202,13 +202,13 @@ function getZamatoRestaurants(restaurantUrl) {
           );
           directionEl.setAttribute("target", "_blank");
           directionEl.innerHTML =
-            "<i class='material-icons'>directions</i>&nbsp;Get Directions";
+            "<i class='material-icons'>directions</i>&nbsp;Directions";
 
           let favoriteEl = document.createElement("button");
-          favoriteEl.classList = "res-link blue lighten-2 btn";
+          favoriteEl.classList = "res-link red lighten-2 button-margins btn";
           favoriteEl.setAttribute("data-script", "res-fave");
           favoriteEl.innerHTML =
-            "<i class='material-icons'>save</i>&nbsp;Favorite";
+            "<i class='material-icons'>favorite</i>&nbsp;Favorite";
 
           resCardEl.appendChild(cardTitleEl);
           cardBodyEl.appendChild(cardListEl);
@@ -359,7 +359,7 @@ function getTastyRecipes(food) {
         addFavoritesBtn.setAttribute("data-img", results[i].thumbnail_url);
         addFavoritesBtn.setAttribute("data-video", videoUrl);
         addFavoritesBtn.setAttribute("data-id", results[i].id);
-        addFavoritesBtn.innerHTML = "<i class='material-icons'>favorite</i>&nbsp;Favorites";
+        addFavoritesBtn.innerHTML = "<i class='material-icons'>favorite</i>&nbsp;Favorite";
         
         // append to page
         titleContainerEl.appendChild(cardTitleEl);
