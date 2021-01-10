@@ -12,4 +12,4 @@ View the top restaurants in your area or find top recipes for a specific food ty
 Click [here](https://daniwhitlock.github.io/Cravings/) to view our project.
 
 # Screenshot
-![39712EB0-B434-484B-BFED-07517F3EBA72](https://user-images.githubusercontent.com/72775548/104128318-2a632200-5324-11eb-94a9-c86182e1b5fc.jpeg)
+![4615A588-7DF8-4B76-93BE-3A3584AE012D](https://user-images.githubusercontent.com/72775548/104136516-f273d300-5353-11eb-8ecb-f264595aa313.jpeg)
