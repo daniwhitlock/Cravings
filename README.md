@@ -18,5 +18,4 @@ Click [here](https://daniwhitlock.github.io/Cravings/) to view our project.
 
 ![4615A588-7DF8-4B76-93BE-3A3584AE012D](https://user-images.githubusercontent.com/72775548/104136516-f273d300-5353-11eb-8ecb-f264595aa313.jpeg)
 
-# Screenshot 
 ![image](https://user-images.githubusercontent.com/72768805/104146838-5cf33600-5389-11eb-8b2f-cad18aace33e.png) 
