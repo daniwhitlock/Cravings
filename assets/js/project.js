@@ -284,7 +284,7 @@ restaurantBoxEl.addEventListener("click", locationClickHandler);
 
 function getTastyRecipes(food) {
 	fetch(
-		"https://tasty.p.rapidapi.com/recipes/list?from=0&size=4&tags=" + food,
+		"https://tasty.p.rapidapi.com/recipes/list?from=0&size=10&tags=" + food,
 		{
 			method: "GET",
 			headers: {
