@@ -7,8 +7,8 @@ View the top restaurants in your area or find top recipes for a specific food ty
 - HTML
 - CSS (+ [Materialize](https://materializecss.com/))
 - Javascript/JQuery
-- [Zomato](https://developers.zomato.com/api#headline1)
-- [Tasty](https://rapidapi.com/apidojo/api/tasty)
+- [Zomato](https://developers.zomato.com/api#headline1) API
+- [Tasty](https://rapidapi.com/apidojo/api/tasty) API
 
 # Link
 
